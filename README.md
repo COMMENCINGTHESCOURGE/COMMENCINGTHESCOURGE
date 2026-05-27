@@ -53,5 +53,14 @@ Same operator. Different substrates. That's the vinculum.
 
 ---
 
+## Find Me
+
+| Platform | Link |
+|----------|------|
+| Kaggle | [commencethescourge](https://kaggle.com/commencethescourge) |
+| GitHub | [COMMENCINGTHESCOURGE](https://github.com/COMMENCINGTHESCOURGE) |
+
+---
+
 *Copyright (c) 2026 Guinea Pig Trench LLC (PA #13674084)*  
 *Credit Facility: Truth Holds Enterprise (PA #7049023)*
