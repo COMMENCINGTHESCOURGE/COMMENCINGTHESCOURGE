@@ -2,9 +2,13 @@
 
 **Field computation. Not a game engine. A continuity engine.**
 
+[![Repos](https://img.shields.io/badge/repos-5-181717?style=flat&logo=github)](https://github.com/COMMENCINGTHESCOURGE)
+[![Kaggle](https://img.shields.io/badge/kaggle-commencethescourge-20BEFF?style=flat&logo=kaggle)](https://kaggle.com/commencethescourge)
+[![Entity](https://img.shields.io/badge/entity-Guinea_Pig_Trench_LLC-303030?style=flat)](https://github.com/COMMENCINGTHESCOURGE)
+
 ---
 
-The vinculum is the universal operator — it binds substrate to substrate across the same algebraic skeleton. Number theory, GPU simulation, swarm coordination, legal documentation — same tensor, different interpretation.
+The vinculum is the universal operator â€” it binds substrate to substrate across the same algebraic skeleton. Number theory, GPU simulation, swarm coordination, legal documentation â€” same tensor, different interpretation.
 
 These repos are the layers of that stack.
 
@@ -15,22 +19,22 @@ These repos are the layers of that stack.
 ### [hyperpoly-terrain](https://github.com/COMMENCINGTHESCOURGE/hyperpoly-terrain)
 **GPU-native material-first terrain simulation engine.**
 
-The compute layer. 6-channel tensor (density, cohesion, permeability, water, sediment, oxidation) processed entirely on GPU with zero host sync. Real-time erosion, fluid dynamics, collision. Same architecture maps to LiDAR calibration, drone swarm coordination, and legal case documentation — the tensor is domain-agnostic.
+The compute layer. 6-channel tensor (density, cohesion, permeability, water, sediment, oxidation) processed entirely on GPU with zero host sync. Real-time erosion, fluid dynamics, collision. Same architecture maps to LiDAR calibration, drone swarm coordination, and legal case documentation â€” the tensor is domain-agnostic.
 
 ### [trench-builder](https://github.com/COMMENCINGTHESCOURGE/trench-builder)
 **Open world integration demo for the MANIFOLD field computation system.**
 
-The integration layer. Three.js + WebGPU + procedural construction rendering the field computation as an explorable world. Also the surface for Vinculum — a no-code infrastructure companion running Gemma 4 on-device via llama.cpp.
+The integration layer. Three.js + WebGPU + procedural construction rendering the field computation as an explorable world. Also the surface for Vinculum â€” a no-code infrastructure companion running Gemma 4 on-device via llama.cpp.
 
 ### [sovereign-resonance-node](https://github.com/COMMENCINGTHESCOURGE/sovereign-resonance-node)
-**Aesthetic layer — WebGL planet avatar with live pipeline HUD.**
+**Aesthetic layer â€” WebGL planet avatar with live pipeline HUD.**
 
 The visualization layer. Reads Firestore-backed pipeline status and renders adversarial development progress in real time. Non-Euclidean projection, live Voltaic Pile HUD.
 
 ### [erdos-straus-solver](https://github.com/COMMENCINGTHESCOURGE/erdos-straus-solver)
-**Hot corridor sieve — integer solver, stride-24, 100% hit rate.**
+**Hot corridor sieve â€” integer solver, stride-24, 100% hit rate.**
 
-The number theory layer. Partition space deterministically by seed + survivor list. This is parallel transport across compute nodes — the manifold geometry of the solution space. The vinculum operating on integers instead of fields.
+The number theory layer. Partition space deterministically by seed + survivor list. This is parallel transport across compute nodes â€” the manifold geometry of the solution space. The vinculum operating on integers instead of fields.
 
 ### [hermes-agent](https://github.com/COMMENCINGTHESCOURGE/hermes-agent) *(fork)*
 **The agent that grows with you.**
@@ -43,11 +47,11 @@ The agent layer. Fork of Nous Research's Hermes Agent, adapted to work within th
 
 | Layer | Substrate | Vinculum Operates On |
 |-------|-----------|----------------------|
-| Number theory | Integers | Sieve partitions → parallel transport |
-| Simulation | GPU fields | 6-channel tensor → terrain/swarm/legal |
-| Rendering | WebGL/Three.js | Field state → visual continuity |
-| Visualization | Firestore → WebGL | Pipeline status → planetary HUD |
-| Agent | Hermes/LLM | Natural language → autonomous reasoning |
+| Number theory | Integers | Sieve partitions â†’ parallel transport |
+| Simulation | GPU fields | 6-channel tensor â†’ terrain/swarm/legal |
+| Rendering | WebGL/Three.js | Field state â†’ visual continuity |
+| Visualization | Firestore â†’ WebGL | Pipeline status â†’ planetary HUD |
+| Agent | Hermes/LLM | Natural language â†’ autonomous reasoning |
 
 Same operator. Different substrates. That's the vinculum.
 
@@ -64,3 +68,5 @@ Same operator. Different substrates. That's the vinculum.
 
 *Copyright (c) 2026 Guinea Pig Trench LLC (PA #13674084)*  
 *Credit Facility: Truth Holds Enterprise (PA #7049023)*
+
+---
