@@ -11,6 +11,12 @@ public partial class GrassInstancer : MultiMeshInstance3D
 
     private const int MATERIAL_COUNT = 256;
     private ImageTexture _tensorTexture;
+    
+    // Phase 29: GPU Compute Culling
+    private ComputeCuller _culler;
+    private ArchitectAI _architectAI;
+    private float[] _rawInstanceData;
+    private bool _cullingEnabled = true;
 
     public override void _Ready()
     {
@@ -36,6 +42,61 @@ public partial class GrassInstancer : MultiMeshInstance3D
 
         GenerateMaterialTensor();
         PopulateInstances();
+
+        // Phase 29: Initialize Compute Culler
+        _culler = new ComputeCuller();
+        AddChild(_culler);
+        _culler.Initialize(_rawInstanceData, GrassCount, _tensorTexture);
+        
+        // Phase 30: Initialize Architect AI
+        _architectAI = new ArchitectAI();
+        AddChild(_architectAI);
+    }
+
+    public override void _Process(double delta)
+    {
+        if (_cullingEnabled && _culler != null)
+        {
+            // Dispatch compute shader
+            // For grass, LOD distance might be 60.0f
+            float[] compactedData = _culler.DispatchCull(60.0f);
+            
+            if (compactedData != null)
+            {
+                // Phase 30: Pass to Architect
+                if (_architectAI != null)
+                {
+                    _architectAI.AnalyzeCullingFeedback(_rawInstanceData, compactedData);
+                }
+
+                // Each instance is 16 floats (12 for transform, 4 for custom data)
+                int visibleCount = compactedData.Length / 16;
+                Multimesh.InstanceCount = visibleCount;
+                
+                for (int i = 0; i < visibleCount; i++)
+                {
+                    int offset = i * 16;
+                    
+                    // Column-major Transform3D from flat array
+                    Transform3D t = new Transform3D(
+                        new Vector3(compactedData[offset+0], compactedData[offset+1], compactedData[offset+2]),
+                        new Vector3(compactedData[offset+4], compactedData[offset+5], compactedData[offset+6]),
+                        new Vector3(compactedData[offset+8], compactedData[offset+9], compactedData[offset+10]),
+                        new Vector3(compactedData[offset+12], compactedData[offset+13], compactedData[offset+14])
+                    );
+                    
+                    Color customData = new Color(
+                        compactedData[offset+3],
+                        compactedData[offset+7],
+                        compactedData[offset+11],
+                        compactedData[offset+15]
+                    );
+
+                    Multimesh.SetInstanceTransform(i, t);
+                    Multimesh.SetInstanceCustomData(i, customData);
+                }
+            }
+        }
     }
 
     private void GenerateMaterialTensor()
@@ -67,6 +128,8 @@ public partial class GrassInstancer : MultiMeshInstance3D
 
     private void PopulateInstances()
     {
+        _rawInstanceData = new float[GrassCount * 16];
+
         for (int i = 0; i < GrassCount; i++)
         {
             // Match the Filament demo distribution logic
@@ -85,8 +148,35 @@ public partial class GrassInstancer : MultiMeshInstance3D
             Transform3D transform = new Transform3D(Basis.Identity, new Vector3(x, y, z));
             Multimesh.SetInstanceTransform(i, transform);
             
-            // Pass the absolute world position (xyz) and material index (w) to INSTANCE_CUSTOM
-            Multimesh.SetInstanceCustomData(i, new Color(worldPos.X, worldPos.Y, worldPos.Z, materialIdx));
+            Color customData = new Color(worldPos.X, worldPos.Y, worldPos.Z, materialIdx);
+            Multimesh.SetInstanceCustomData(i, customData);
+
+            // Phase 29: Store raw data for compute shader
+            int offset = i * 16;
+            
+            // vec4 transform_0
+            _rawInstanceData[offset+0] = transform.Basis.X.X;
+            _rawInstanceData[offset+1] = transform.Basis.X.Y;
+            _rawInstanceData[offset+2] = transform.Basis.X.Z;
+            _rawInstanceData[offset+3] = customData.R;
+            
+            // vec4 transform_1
+            _rawInstanceData[offset+4] = transform.Basis.Y.X;
+            _rawInstanceData[offset+5] = transform.Basis.Y.Y;
+            _rawInstanceData[offset+6] = transform.Basis.Y.Z;
+            _rawInstanceData[offset+7] = customData.G;
+            
+            // vec4 transform_2
+            _rawInstanceData[offset+8] = transform.Basis.Z.X;
+            _rawInstanceData[offset+9] = transform.Basis.Z.Y;
+            _rawInstanceData[offset+10] = transform.Basis.Z.Z;
+            _rawInstanceData[offset+11] = customData.B;
+            
+            // vec4 custom_data
+            _rawInstanceData[offset+12] = transform.Origin.X;
+            _rawInstanceData[offset+13] = transform.Origin.Y;
+            _rawInstanceData[offset+14] = transform.Origin.Z;
+            _rawInstanceData[offset+15] = customData.A;
         }
         GD.Print($"[TENSOR] Spawned {GrassCount} vegetation instances with Tensor bound.");
     }

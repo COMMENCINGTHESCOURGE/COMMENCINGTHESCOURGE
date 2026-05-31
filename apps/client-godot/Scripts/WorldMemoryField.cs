@@ -15,6 +15,9 @@ public partial class WorldMemoryField : Node3D
         public float DangerScent = 0f;
         public float CivAnchor = 0f;
         public float DataDensity = 0f; // Bridging old PropagationSystem metric
+        
+        // Phase 30: Terrain Feedback Loop
+        public float ResourceDepletion = 0f; 
     }
 
     private Dictionary<Vector2I, MemoryCell> _grid = new();
@@ -48,13 +51,17 @@ public partial class WorldMemoryField : Node3D
             // Data Density degrades fast (tension passes)
             if (cell.DataDensity > 0) cell.DataDensity -= 0.5f * dt;
 
+            // Resource Depletion regenerates very slowly
+            if (cell.ResourceDepletion > 0) cell.ResourceDepletion -= 0.01f * dt;
+
             // Clamp to zero
             cell.FootTraffic = Mathf.Max(0, cell.FootTraffic);
             cell.DangerScent = Mathf.Max(0, cell.DangerScent);
             cell.CivAnchor = Mathf.Max(0, cell.CivAnchor);
             cell.DataDensity = Mathf.Max(0, cell.DataDensity);
+            cell.ResourceDepletion = Mathf.Max(0, cell.ResourceDepletion);
 
-            if (cell.FootTraffic == 0 && cell.DangerScent == 0 && cell.CivAnchor == 0 && cell.DataDensity == 0)
+            if (cell.FootTraffic == 0 && cell.DangerScent == 0 && cell.CivAnchor == 0 && cell.DataDensity == 0 && cell.ResourceDepletion == 0)
             {
                 keysToRemove.Add(kvp.Key);
             }
@@ -111,6 +118,12 @@ public partial class WorldMemoryField : Node3D
         }
     }
 
+    public void AddDepletionTrace(Vector3 pos, float amount = 1.0f)
+    {
+        var cell = GetOrCreateCell(WorldToGrid(pos));
+        cell.ResourceDepletion = Mathf.Min(100.0f, cell.ResourceDepletion + amount);
+    }
+
     public float GetFootTraffic(Vector3 pos)
     {
         if (_grid.TryGetValue(WorldToGrid(pos), out var cell)) return cell.FootTraffic;
@@ -126,6 +139,12 @@ public partial class WorldMemoryField : Node3D
     public float GetCivAnchor(Vector3 pos)
     {
         if (_grid.TryGetValue(WorldToGrid(pos), out var cell)) return cell.CivAnchor;
+        return 0f;
+    }
+
+    public float GetResourceDepletion(Vector3 pos)
+    {
+        if (_grid.TryGetValue(WorldToGrid(pos), out var cell)) return cell.ResourceDepletion;
         return 0f;
     }
 
