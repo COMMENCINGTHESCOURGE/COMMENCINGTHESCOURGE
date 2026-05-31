@@ -1,0 +1,110 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgh2sglyq2ynf"]
+
+[sub_resource type="StyleBoxFlat" id="minimap_bg"]
+bg_color = Color(0.06, 0.06, 0.08, 0.85)
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="compass_bg"]
+bg_color = Color(0.06, 0.06, 0.08, 0.7)
+corner_radius_bottom_left = 4
+corner_radius_bottom_right = 4
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+
+[node name="MinimapPanel" type="CanvasLayer"]
+layer = 9
+
+[node name="MinimapBorder" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -212.0
+offset_top = 8.0
+offset_right = -12.0
+offset_bottom = 212.0
+custom_minimum_size = Vector2(200, 200)
+theme_overrides = { "styles/panel": SubResource("minimap_bg") }
+
+[node name="Minimap" type="TextureRect" parent="MinimapBorder"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = -6.0
+stretch_mode = 5
+
+[node name="PlayerDot" type="TextureRect" parent="MinimapBorder"]
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+modulate = Color(0.3, 0.7, 0.9, 1)
+
+[node name="NPCLayer" type="Node2D" parent="MinimapBorder"]
+offset_left = 6.0
+offset_top = 6.0
+
+[node name="ZombieLayer" type="Node2D" parent="MinimapBorder"]
+offset_left = 6.0
+offset_top = 6.0
+
+[node name="POILayer" type="Node2D" parent="MinimapBorder"]
+offset_left = 6.0
+offset_top = 6.0
+
+[node name="CompassBar" type="Panel" parent="."]
+anchor_right = 0.5
+offset_top = 8.0
+offset_left = -200.0
+offset_right = 200.0
+custom_minimum_size = Vector2(400, 24)
+theme_overrides = { "styles/panel": SubResource("compass_bg") }
+
+[node name="CompassLabels" type="HBoxContainer" parent="CompassBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="N" type="Label" parent="CompassBar/CompassLabels"]
+text = "N"
+theme_overrides = { "font_sizes/font_size": 11, "colors/font_color": Color(0.8, 0.3, 0.3, 1) }
+
+[node name="NE" type="Label" parent="CompassBar/CompassLabels"]
+text = "NE"
+theme_overrides = { "font_sizes/font_size": 9, "colors/font_color": Color(0.4, 0.4, 0.4, 1) }
+
+[node name="E" type="Label" parent="CompassBar/CompassLabels"]
+text = "E"
+theme_overrides = { "font_sizes/font_size": 11, "colors/font_color": Color(0.6, 0.6, 0.6, 1) }
+
+[node name="SE" type="Label" parent="CompassBar/CompassLabels"]
+text = "SE"
+theme_overrides = { "font_sizes/font_size": 9, "colors/font_color": Color(0.4, 0.4, 0.4, 1) }
+
+[node name="S" type="Label" parent="CompassBar/CompassLabels"]
+text = "S"
+theme_overrides = { "font_sizes/font_size": 11, "colors/font_color": Color(0.6, 0.6, 0.6, 1) }
+
+[node name="SW" type="Label" parent="CompassBar/CompassLabels"]
+text = "SW"
+theme_overrides = { "font_sizes/font_size": 9, "colors/font_color": Color(0.4, 0.4, 0.4, 1) }
+
+[node name="W" type="Label" parent="CompassBar/CompassLabels"]
+text = "W"
+theme_overrides = { "font_sizes/font_size": 11, "colors/font_color": Color(0.6, 0.6, 0.6, 1) }
+
+[node name="NW" type="Label" parent="CompassBar/CompassLabels"]
+text = "NW"
+theme_overrides = { "font_sizes/font_size": 9, "colors/font_color": Color(0.4, 0.4, 0.4, 1) }
+
+[node name="FacingIndicator" type="TextureRect" parent="CompassBar"]
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -6.0
+offset_right = 6.0
+custom_minimum_size = Vector2(12, 12)
+modulate = Color(0.3, 0.7, 0.9, 1)

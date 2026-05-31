@@ -1,0 +1,204 @@
+[gd_scene load_steps=4 format=3 uid="uid://dcbh4dox0q42m"]
+
+[sub_resource type="StyleBoxFlat" id="panel_bg"]
+bg_color = Color(0.1, 0.1, 0.12, 0.92)
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="tab_active"]
+bg_color = Color(0.2, 0.3, 0.4, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+
+[sub_resource type="StyleBoxFlat" id="tab_inactive"]
+bg_color = Color(0.12, 0.12, 0.15, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+
+[node name="CraftingPanel" type="Panel" parent="."]
+visible = false
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -250.0
+offset_right = 300.0
+offset_bottom = 250.0
+theme_overrides = { "styles/panel": SubResource("panel_bg") }
+
+[node name="TitleBar" type="HBoxContainer" parent="."]
+offset_left = 12.0
+offset_top = 8.0
+offset_right = -12.0
+custom_minimum_size = Vector2(0, 28)
+
+[node name="TitleLabel" type="Label" parent="TitleBar"]
+text = "CRAFTING"
+theme_overrides = { "font_sizes/font_size": 16, "colors/font_color": Color(0.88, 0.88, 0.88, 1) }
+
+[node name="StationLabel" type="Label" parent="TitleBar"]
+offset_left = 12.0
+text = "Hands"
+theme_overrides = { "font_sizes/font_size": 12, "colors/font_color": Color(0.5, 0.6, 0.7, 1) }
+
+[node name="CloseButton" type="Button" parent="TitleBar"]
+offset_left = 20.0
+text = "X"
+theme_overrides = { "font_sizes/font_size": 14, "colors/font_color": Color(0.8, 0.3, 0.3, 1) }
+
+[node name="StationTabs" type="HBoxContainer" parent="."]
+offset_left = 12.0
+offset_top = 40.0
+
+[node name="TabHands" type="Button" parent="StationTabs"]
+text = "   Hands   "
+theme_overrides = { "styles/normal": SubResource("tab_active"), "styles/hover": SubResource("tab_active"), "font_sizes/font_size": 12, "colors/font_color": Color(0.88, 0.88, 0.88, 1) }
+
+[node name="TabCampfire" type="Button" parent="StationTabs"]
+text = "   Campfire   "
+theme_overrides = { "styles/normal": SubResource("tab_inactive"), "styles/hover": SubResource("tab_inactive"), "font_sizes/font_size": 12, "colors/font_color": Color(0.5, 0.5, 0.5, 1) }
+
+[node name="TabWorkbench" type="Button" parent="StationTabs"]
+text = "   Workbench   "
+theme_overrides = { "styles/normal": SubResource("tab_inactive"), "styles/hover": SubResource("tab_inactive"), "font_sizes/font_size": 12, "colors/font_color": Color(0.5, 0.5, 0.5, 1) }
+
+[node name="TabMedical" type="Button" parent="StationTabs"]
+text = "   Medical   "
+theme_overrides = { "styles/normal": SubResource("tab_inactive"), "styles/hover": SubResource("tab_inactive"), "font_sizes/font_size": 12, "colors/font_color": Color(0.5, 0.5, 0.5, 1) }
+
+[node name="FilterToggle" type="HBoxContainer" parent="."]
+offset_right = -12.0
+offset_top = 44.0
+anchor_right = 1.0
+alignment = 2
+
+[node name="ShowAllCheck" type="CheckBox" parent="FilterToggle"]
+text = "All"
+theme_overrides = { "font_sizes/font_size": 10, "colors/font_color": Color(0.5, 0.5, 0.5, 1) }
+flat = true
+
+[node name="ShowCraftableCheck" type="CheckBox" parent="FilterToggle"]
+text = "Craftable"
+theme_overrides = { "font_sizes/font_size": 10, "colors/font_color": Color(0.5, 0.5, 0.5, 1) }
+flat = true
+button_pressed = true
+
+[node name="RecipeScroll" type="ScrollContainer" parent="."]
+offset_left = 12.0
+offset_top = 72.0
+offset_right = -12.0
+offset_bottom = -52.0
+
+[node name="RecipeList" type="VBoxContainer" parent="RecipeScroll"]
+custom_minimum_size = Vector2(0, 100)
+
+[node name="Recipe0" type="Panel" parent="RecipeScroll/RecipeList"]
+custom_minimum_size = Vector2(0, 52)
+theme_overrides = { "styles/panel": SubResource("tab_inactive") }
+
+[node name="Recipe0Name" type="Label" parent="RecipeScroll/RecipeList/Recipe0"]
+offset_left = 8.0
+offset_top = 4.0
+text = "Craft Bandage"
+theme_overrides = { "font_sizes/font_size": 13, "colors/font_color": Color(0.88, 0.88, 0.88, 1) }
+
+[node name="Recipe0Detail" type="Label" parent="RecipeScroll/RecipeList/Recipe0"]
+offset_left = 8.0
+offset_top = 22.0
+text = "10s • Medicine skill • Cloth x2"
+theme_overrides = { "font_sizes/font_size": 10, "colors/font_color": Color(0.5, 0.5, 0.5, 1) }
+
+[node name="Recipe0CraftBtn" type="Button" parent="RecipeScroll/RecipeList/Recipe0"]
+anchor_right = 1.0
+offset_right = -8.0
+offset_top = 8.0
+offset_bottom = -8.0
+anchor_left = 1.0
+offset_left = -80.0
+text = "Craft"
+theme_overrides = { "font_sizes/font_size": 12, "colors/font_color": Color(0.5, 0.7, 0.5, 1) }
+disabled = false
+
+[node name="Recipe1" type="Panel" parent="RecipeScroll/RecipeList"]
+custom_minimum_size = Vector2(0, 52)
+theme_overrides = { "styles/panel": SubResource("tab_inactive") }
+
+[node name="Recipe1Name" type="Label" parent="RecipeScroll/RecipeList/Recipe1"]
+offset_left = 8.0
+offset_top = 4.0
+text = "Build Campfire"
+theme_overrides = { "font_sizes/font_size": 13, "colors/font_color": Color(0.88, 0.88, 0.88, 1) }
+
+[node name="Recipe1Detail" type="Label" parent="RecipeScroll/RecipeList/Recipe1"]
+offset_left = 8.0
+offset_top = 22.0
+text = "20s • Survival skill • Wood x3"
+theme_overrides = { "font_sizes/font_size": 10, "colors/font_color": Color(0.5, 0.5, 0.5, 1) }
+
+[node name="Recipe1CraftBtn" type="Button" parent="RecipeScroll/RecipeList/Recipe1"]
+anchor_right = 1.0
+offset_right = -8.0
+offset_top = 8.0
+offset_bottom = -8.0
+anchor_left = 1.0
+offset_left = -80.0
+text = "Craft"
+theme_overrides = { "font_sizes/font_size": 12, "colors/font_color": Color(0.5, 0.7, 0.5, 1) }
+
+[node name="Recipe2" type="Panel" parent="RecipeScroll/RecipeList"]
+custom_minimum_size = Vector2(0, 52)
+theme_overrides = { "styles/panel": SubResource("tab_inactive") }
+
+[node name="Recipe2Name" type="Label" parent="RecipeScroll/RecipeList/Recipe2"]
+offset_left = 8.0
+offset_top = 4.0
+text = "Craft Machete"
+theme_overrides = { "font_sizes/font_size": 13, "colors/font_color": Color(0.5, 0.5, 0.5, 1) }
+
+[node name="Recipe2Detail" type="Label" parent="RecipeScroll/RecipeList/Recipe2"]
+offset_left = 8.0
+offset_top = 22.0
+text = "120s • Engineering • Scrap Metal x3, Duct Tape x1"
+theme_overrides = { "font_sizes/font_size": 10, "colors/font_color": Color(0.5, 0.3, 0.3, 1) }
+
+[node name="Recipe2CraftBtn" type="Button" parent="RecipeScroll/RecipeList/Recipe2"]
+anchor_right = 1.0
+offset_right = -8.0
+offset_top = 8.0
+offset_bottom = -8.0
+anchor_left = 1.0
+offset_left = -80.0
+text = "Locked"
+theme_overrides = { "font_sizes/font_size": 12, "colors/font_color": Color(0.5, 0.3, 0.3, 1) }
+disabled = true
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+visible = false
+offset_left = 12.0
+offset_bottom = -12.0
+offset_right = -80.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(0, 24)
+max_value = 100.0
+value = 0.0
+theme_overrides = { "styles/background": SubResource("tab_inactive"), "styles/fill": SubResource("tab_active") }
+
+[node name="ProgressLabel" type="Label" parent="."]
+anchor_right = 1.0
+offset_right = -12.0
+offset_bottom = -36.0
+anchor_bottom = 1.0
+text = ""
+theme_overrides = { "font_sizes/font_size": 10, "colors/font_color": Color(0.5, 0.5, 0.5, 1) }
+
+[node name="CancelButton" type="Button" parent="."]
+anchor_right = 1.0
+offset_right = -12.0
+anchor_bottom = 1.0
+offset_bottom = -12.0
+anchor_left = 1.0
+offset_left = -72.0
+text = "Cancel"
+theme_overrides = { "font_sizes/font_size": 12, "colors/font_color": Color(0.8, 0.4, 0.4, 1) }
+visible = false

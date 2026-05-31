@@ -1,0 +1,740 @@
+{
+  "version": "1.0.0",
+  "name": "Necroworld Item Database",
+  "description": "Constraint-first item definitions. Every value is a ratio, not an absolute.",
+
+  "item_categories": {
+    "weapon_melee": {
+      "name": "Melee Weapons",
+      "slot": "hand",
+      "stackable": false,
+      "degradable": true
+    },
+    "weapon_ranged": {
+      "name": "Ranged Weapons",
+      "slot": "hand",
+      "stackable": false,
+      "degradable": true,
+      "noisy": true
+    },
+    "ammo": {
+      "name": "Ammunition",
+      "slot": "ammo",
+      "stackable": true,
+      "max_stack": 60
+    },
+    "food": {
+      "name": "Food",
+      "slot": "consumable",
+      "stackable": true,
+      "max_stack": 10,
+      "spoils": true
+    },
+    "water": {
+      "name": "Water",
+      "slot": "consumable",
+      "stackable": true,
+      "max_stack": 5
+    },
+    "medical": {
+      "name": "Medical",
+      "slot": "consumable",
+      "stackable": true,
+      "max_stack": 5
+    },
+    "material": {
+      "name": "Material",
+      "slot": "material",
+      "stackable": true,
+      "max_stack": 20,
+      "degradable": false
+    },
+    "component": {
+      "name": "Component",
+      "slot": "component",
+      "stackable": true,
+      "max_stack": 10
+    },
+    "tool": {
+      "name": "Tool",
+      "slot": "hand",
+      "stackable": false,
+      "degradable": true
+    },
+    "ammo_tool": {
+      "name": "Ammunition Tool",
+      "slot": "hand",
+      "stackable": false,
+      "degradable": true
+    },
+    "novelty": {
+      "name": "Novelty",
+      "slot": "novelty",
+      "stackable": true,
+      "max_stack": 5,
+      "degradable": false
+    }
+  },
+
+  "items": {
+    "water_clean": {
+      "category": "water",
+      "name": "Clean Water",
+      "description": "A canteen of clean, drinkable water.",
+      "restores": { "thirst": 0.3 },
+      "weight": 0.5,
+      "volume": 1,
+      "spoil_time_days": 3,
+      "craftable": true
+    },
+    "water_dirty": {
+      "category": "water",
+      "name": "Dirty Water",
+      "description": "Contaminated water. Drink if desperate.",
+      "restores": { "thirst": 0.2 },
+      "side_effects": { "infection": 0.05 },
+      "weight": 0.5,
+      "volume": 1,
+      "craftable": false
+    },
+    "canned_beans": {
+      "category": "food",
+      "name": "Canned Beans",
+      "description": "A can of beans. Lasts forever unopened.",
+      "restores": { "hunger": 0.25, "morale": 0.02 },
+      "weight": 0.4,
+      "volume": 1,
+      "spoil_time_days": 730,
+      "craftable": false
+    },
+    "canned_meat": {
+      "category": "food",
+      "name": "Canned Meat",
+      "description": "High-protein canned meat. Valuable trade good.",
+      "restores": { "hunger": 0.4, "morale": 0.05 },
+      "weight": 0.5,
+      "volume": 1,
+      "spoil_time_days": 730,
+      "craftable": false
+    },
+    "mre": {
+      "category": "food",
+      "name": "MRE",
+      "description": "Military-issue meal, ready-to-eat. Complete nutrition.",
+      "restores": { "hunger": 0.6, "thirst": 0.1, "morale": 0.08 },
+      "weight": 0.8,
+      "volume": 2,
+      "spoil_time_days": 365,
+      "craftable": false
+    },
+    "foraged_berries": {
+      "category": "food",
+      "name": "Wild Berries",
+      "description": "Foraged berries. Better than nothing.",
+      "restores": { "hunger": 0.05 },
+      "side_effects": { "infection": 0.02 },
+      "weight": 0.1,
+      "volume": 1,
+      "spoil_time_days": 1,
+      "craftable": false
+    },
+    "cooked_meat": {
+      "category": "food",
+      "name": "Cooked Meat",
+      "description": "Freshly cooked meat. Nutritious and morale-boosting.",
+      "restores": { "hunger": 0.35, "morale": 0.1 },
+      "weight": 0.3,
+      "volume": 1,
+      "spoil_time_days": 2,
+      "craftable": true
+    },
+    "raw_meat": {
+      "category": "food",
+      "name": "Raw Meat",
+      "description": "Raw animal meat. Cook it first or risk infection.",
+      "restores": { "hunger": 0.2 },
+      "side_effects": { "infection": 0.1 },
+      "weight": 0.4,
+      "volume": 1,
+      "spoil_time_days": 1,
+      "craftable": false
+    },
+
+    "bandage": {
+      "category": "medical",
+      "name": "Bandage",
+      "description": "Clean cloth bandage for wounds.",
+      "restores": { "health": 0.2 },
+      "weight": 0.05,
+      "volume": 1,
+      "craftable": true
+    },
+    "first_aid_kit": {
+      "category": "medical",
+      "name": "First Aid Kit",
+      "description": "Complete medical kit with antiseptic and bandages.",
+      "restores": { "health": 0.5, "infection": -0.15 },
+      "weight": 0.5,
+      "volume": 2,
+      "craftable": true
+    },
+    "antibiotics": {
+      "category": "medical",
+      "name": "Antibiotics",
+      "description": "Broad-spectrum antibiotics. Suppresses infection.",
+      "restores": { "infection": -0.3 },
+      "weight": 0.05,
+      "volume": 1,
+      "craftable": true
+    },
+    "painkillers": {
+      "category": "medical",
+      "name": "Painkillers",
+      "description": "Over-the-counter pain relief. Helps you push through.",
+      "restores": { "morale": 0.15, "fatigue": -0.1 },
+      "side_effects": { "fatigue": 0.2 },
+      "weight": 0.05,
+      "volume": 1,
+      "craftable": false
+    },
+    "antiviral": {
+      "category": "medical",
+      "name": "Antiviral",
+      "description": "Experimental antiviral. May slow the infection.",
+      "restores": { "infection": -0.4 },
+      "weight": 0.05,
+      "volume": 1,
+      "craftable": true
+    },
+
+    "pistol": {
+      "category": "weapon_ranged",
+      "name": "9mm Pistol",
+      "description": "Standard sidearm. Reliable, common ammo.",
+      "damage": 25,
+      "range": 30,
+      "noise": 0.6,
+      "ammo_type": "9mm",
+      "magazine_size": 12,
+      "reload_time": 2.0,
+      "weight": 1.0,
+      "volume": 2,
+      "durability": 100,
+      "degradation_per_use": 0.5,
+      "craftable": false
+    },
+    "shotgun": {
+      "category": "weapon_ranged",
+      "name": "Pump Shotgun",
+      "description": "Close-range devastation. Loud. Very loud.",
+      "damage": 60,
+      "range": 15,
+      "noise": 0.9,
+      "ammo_type": "12gauge",
+      "magazine_size": 6,
+      "reload_time": 3.0,
+      "weight": 3.0,
+      "volume": 4,
+      "durability": 80,
+      "degradation_per_use": 0.8,
+      "craftable": false
+    },
+    "rifle": {
+      "category": "weapon_ranged",
+      "name": "Hunting Rifle",
+      "description": "Bolt-action rifle. Accurate at range.",
+      "damage": 50,
+      "range": 60,
+      "noise": 0.8,
+      "ammo_type": "308",
+      "magazine_size": 5,
+      "reload_time": 3.5,
+      "weight": 3.5,
+      "volume": 4,
+      "durability": 120,
+      "degradation_per_use": 0.3,
+      "craftable": false
+    },
+    "ammo_9mm": {
+      "category": "ammo",
+      "name": "9mm Rounds",
+      "description": "Standard 9x19mm Parabellum. Common as dirt.",
+      "weight": 0.02,
+      "volume": 1,
+      "stack_size": 15,
+      "craftable": true
+    },
+    "ammo_12gauge": {
+      "category": "ammo",
+      "name": "12 Gauge Shells",
+      "description": "Standard shotgun shells.",
+      "weight": 0.04,
+      "volume": 1,
+      "stack_size": 10,
+      "craftable": true
+    },
+    "ammo_308": {
+      "category": "ammo",
+      "name": ".308 Rounds",
+      "description": "Rifle ammunition. Powerful, uncommon.",
+      "weight": 0.03,
+      "volume": 1,
+      "stack_size": 10,
+      "craftable": true
+    },
+
+    "baseball_bat": {
+      "category": "weapon_melee",
+      "name": "Baseball Bat",
+      "description": "Solid wooden bat. Classic.",
+      "damage": 15,
+      "stamina_cost": 5,
+      "range": 2.0,
+      "noise": 0.1,
+      "weight": 1.5,
+      "volume": 3,
+      "durability": 60,
+      "degradation_per_use": 0.2,
+      "craftable": false
+    },
+    "crowbar": {
+      "category": "weapon_melee",
+      "name": "Crowbar",
+      "description": "Pry things open. Bonne things shut.",
+      "damage": 20,
+      "stamina_cost": 8,
+      "range": 1.8,
+      "noise": 0.05,
+      "weight": 2.0,
+      "volume": 3,
+      "durability": 100,
+      "degradation_per_use": 0.1,
+      "craftable": false
+    },
+    "kitchen_knife": {
+      "category": "weapon_melee",
+      "name": "Kitchen Knife",
+      "description": "Basic blade. Gets the job done.",
+      "damage": 10,
+      "stamina_cost": 3,
+      "range": 1.2,
+      "noise": 0.02,
+      "weight": 0.3,
+      "volume": 1,
+      "durability": 30,
+      "degradation_per_use": 0.5,
+      "craftable": false
+    },
+    "machete": {
+      "category": "weapon_melee",
+      "name": "Machete",
+      "description": "Long blade. Efficient. Durable.",
+      "damage": 25,
+      "stamina_cost": 6,
+      "range": 2.0,
+      "noise": 0.05,
+      "weight": 1.0,
+      "volume": 2,
+      "durability": 80,
+      "degradation_per_use": 0.3,
+      "craftable": true
+    },
+
+    "wood": {
+      "category": "material",
+      "name": "Wood",
+      "description": "Basic building material. Boards, planks, scrap lumber.",
+      "weight": 0.5,
+      "volume": 2,
+      "craftable": false
+    },
+    "nail": {
+      "category": "material",
+      "name": "Nails",
+      "description": "Assorted nails and screws. Always useful.",
+      "weight": 0.02,
+      "volume": 1,
+      "craftable": false
+    },
+    "scrap_metal": {
+      "category": "material",
+      "name": "Scrap Metal",
+      "description": "Miscellaneous metal pieces. Melt down or build with.",
+      "weight": 0.8,
+      "volume": 2,
+      "craftable": false
+    },
+    "cloth": {
+      "category": "material",
+      "name": "Cloth",
+      "description": "Fabric scraps. Bandages, rope, insulation.",
+      "weight": 0.05,
+      "volume": 1,
+      "craftable": false
+    },
+    "duct_tape": {
+      "category": "material",
+      "name": "Duct Tape",
+      "description": "The universal fixer. Holds everything together.",
+      "weight": 0.1,
+      "volume": 1,
+      "craftable": false
+    },
+    "rope": {
+      "category": "material",
+      "name": "Rope",
+      "description": "Nylon rope. 10 meters. Strong.",
+      "weight": 0.3,
+      "volume": 2,
+      "craftable": true
+    },
+    "glass_shard": {
+      "category": "material",
+      "name": "Glass Shard",
+      "description": "Sharp glass. Makes a decent blade in a pinch.",
+      "weight": 0.05,
+      "volume": 1,
+      "craftable": false
+    },
+    "plastic": {
+      "category": "material",
+      "name": "Plastic Scrap",
+      "description": "Miscellaneous plastic. Can be molded or used as filler.",
+      "weight": 0.1,
+      "volume": 2,
+      "craftable": false
+    },
+
+    "wire": {
+      "category": "component",
+      "name": "Electrical Wire",
+      "description": "Copper wire. For wiring and traps.",
+      "weight": 0.1,
+      "volume": 1,
+      "craftable": false
+    },
+    "battery": {
+      "category": "component",
+      "name": "Car Battery",
+      "description": "12V lead-acid battery. Powers things.",
+      "weight": 5.0,
+      "volume": 4,
+      "craftable": false,
+      "charge": 100
+    },
+    "solar_panel": {
+      "category": "component",
+      "name": "Solar Panel",
+      "description": "50W photovoltaic panel. Free power in sunlight.",
+      "weight": 3.0,
+      "volume": 4,
+      "craftable": true,
+      "power_output": 50
+    },
+    "motor": {
+      "category": "component",
+      "name": "Electric Motor",
+      "description": "Small electric motor. Pumps, fans, tools.",
+      "weight": 2.0,
+      "volume": 3,
+      "craftable": false
+    },
+    "gearbox": {
+      "category": "component",
+      "name": "Gearbox",
+      "description": "Assorted gears and bearings. Mechanical projects.",
+      "weight": 1.0,
+      "volume": 2,
+      "craftable": false
+    },
+
+    "campfire_kit": {
+      "category": "tool",
+      "name": "Campfire Kit",
+      "description": "Stones, steel, and tinder. Make fire anywhere.",
+      "weight": 1.0,
+      "volume": 2,
+      "durability": 20,
+      "craftable": true
+    },
+    "workbench": {
+      "category": "tool",
+      "name": "Workbench",
+      "description": "Foldable workbench. Crafting station.",
+      "weight": 8.0,
+      "volume": 6,
+      "craftable": true
+    },
+    "water_filter": {
+      "category": "tool",
+      "name": "Water Filter",
+      "description": "Portable water filter. Makes dirty water drinkable.",
+      "weight": 0.5,
+      "volume": 2,
+      "durability": 50,
+      "craftable": true
+    },
+
+    "bandage_improvised": {
+      "category": "medical",
+      "name": "Improvised Bandage",
+      "description": "Torn cloth wrapped with tape. Better than nothing.",
+      "restores": { "health": 0.1 },
+      "weight": 0.05,
+      "volume": 1,
+      "craftable": true
+    },
+    "torch": {
+      "category": "tool",
+      "name": "Torch",
+      "description": "Cloth-wrapped stick soaked in fuel. Light and warmth.",
+      "restores": { "morale": 0.05, "temperature": 0.2 },
+      "weight": 0.5,
+      "volume": 2,
+      "durability": 30,
+      "craftable": true
+    },
+
+    "vr_headset": {
+      "category": "novelty",
+      "name": "Defunct VR Headset",
+      "description": "A relic from the Before. Useless now, but carries a high trade value for nostalgia.",
+      "restores": { "morale": 0.5 },
+      "weight": 0.8,
+      "volume": 2,
+      "craftable": false
+    },
+    "canned_truffles": {
+      "category": "novelty",
+      "name": "Canned Truffles",
+      "description": "Absurdly luxurious pre-collapse food. Technically edible, but mostly used to flex on survivors.",
+      "restores": { "hunger": 0.1, "morale": 0.8 },
+      "weight": 0.3,
+      "volume": 1,
+      "craftable": false
+    },
+    "gold_bar": {
+      "category": "novelty",
+      "name": "Gold Bar",
+      "description": "Heavy, shiny, and completely useless for survival. Valued purely out of habit.",
+      "weight": 12.0,
+      "volume": 1,
+      "craftable": false
+    },
+    "action_figure": {
+      "category": "novelty",
+      "name": "Mint Action Figure",
+      "description": "Pristine packaging. Worthless in a fight, priceless to a collector.",
+      "restores": { "morale": 0.3 },
+      "weight": 0.2,
+      "volume": 1,
+      "craftable": false
+    },
+    "smart_fridge_door": {
+      "category": "novelty",
+      "name": "Smart Fridge Door",
+      "description": "Just the door. Still trying to connect to Wi-Fi. Heavy and awkward.",
+      "weight": 25.0,
+      "volume": 10,
+      "craftable": false
+    }
+  },
+
+  "recipes": [
+    {
+      "id": "recipe_bandage",
+      "name": "Craft Bandage",
+      "station": "hands",
+      "time": 10,
+      "skill": "medicine",
+      "inputs": [ { "item": "cloth", "qty": 2 } ],
+      "outputs": [ { "item": "bandage", "qty": 1 } ]
+    },
+    {
+      "id": "recipe_bandage_improvised",
+      "name": "Make Improvised Bandage",
+      "station": "hands",
+      "time": 5,
+      "skill": "survival",
+      "inputs": [ { "item": "cloth", "qty": 1 } ],
+      "outputs": [ { "item": "bandage_improvised", "qty": 1 } ]
+    },
+    {
+      "id": "recipe_water_filter",
+      "name": "Build Water Filter",
+      "station": "workbench",
+      "time": 60,
+      "skill": "engineering",
+      "inputs": [
+        { "item": "plastic", "qty": 2 },
+        { "item": "cloth", "qty": 1 },
+        { "item": "duct_tape", "qty": 1 }
+      ],
+      "outputs": [ { "item": "water_filter", "qty": 1 } ]
+    },
+    {
+      "id": "recipe_clean_water",
+      "name": "Filter Water",
+      "station": "water_filter",
+      "time": 15,
+      "skill": "survival",
+      "inputs": [ { "item": "water_dirty", "qty": 1 } ],
+      "outputs": [ { "item": "water_clean", "qty": 1 } ]
+    },
+    {
+      "id": "recipe_campfire",
+      "name": "Build Campfire",
+      "station": "hands",
+      "time": 20,
+      "skill": "survival",
+      "inputs": [
+        { "item": "wood", "qty": 3 }
+      ],
+      "outputs": [ { "item": "campfire_kit", "qty": 1 } ]
+    },
+    {
+      "id": "recipe_cook_meat",
+      "name": "Cook Meat",
+      "station": "campfire",
+      "time": 30,
+      "skill": "survival",
+      "inputs": [ { "item": "raw_meat", "qty": 1 } ],
+      "outputs": [ { "item": "cooked_meat", "qty": 1 } ]
+    },
+    {
+      "id": "recipe_workbench",
+      "name": "Build Workbench",
+      "station": "hands",
+      "time": 45,
+      "skill": "engineering",
+      "inputs": [
+        { "item": "wood", "qty": 5 },
+        { "item": "nail", "qty": 10 }
+      ],
+      "outputs": [ { "item": "workbench", "qty": 1 } ]
+    },
+    {
+      "id": "recipe_machete",
+      "name": "Forge Machete",
+      "station": "workbench",
+      "time": 120,
+      "skill": "engineering",
+      "inputs": [
+        { "item": "scrap_metal", "qty": 3 },
+        { "item": "duct_tape", "qty": 1 }
+      ],
+      "outputs": [ { "item": "machete", "qty": 1 } ]
+    },
+    {
+      "id": "recipe_rope",
+      "name": "Twist Rope",
+      "station": "hands",
+      "time": 15,
+      "skill": "survival",
+      "inputs": [ { "item": "cloth", "qty": 4 } ],
+      "outputs": [ { "item": "rope", "qty": 1 } ]
+    },
+    {
+      "id": "recipe_torch",
+      "name": "Make Torch",
+      "station": "hands",
+      "time": 10,
+      "skill": "survival",
+      "inputs": [
+        { "item": "wood", "qty": 1 },
+        { "item": "cloth", "qty": 1 }
+      ],
+      "outputs": [ { "item": "torch", "qty": 1 } ]
+    },
+    {
+      "id": "recipe_solar_panel",
+      "name": "Repair Solar Panel",
+      "station": "workbench",
+      "time": 180,
+      "skill": "engineering",
+      "inputs": [
+        { "item": "solar_panel", "qty": 1 },
+        { "item": "wire", "qty": 2 },
+        { "item": "duct_tape", "qty": 1 }
+      ],
+      "outputs": [ { "item": "solar_panel", "qty": 1 } ]
+    },
+    {
+      "id": "recipe_ammo_9mm",
+      "name": "Reload 9mm Rounds",
+      "station": "workbench",
+      "time": 30,
+      "skill": "engineering",
+      "inputs": [
+        { "item": "scrap_metal", "qty": 1 },
+        { "item": "wire", "qty": 1 },
+        { "item": "duct_tape", "qty": 1 }
+      ],
+      "outputs": [ { "item": "ammo_9mm", "qty": 10 } ]
+    },
+    {
+      "id": "recipe_ammo_12gauge",
+      "name": "Reload Shotgun Shells",
+      "station": "workbench",
+      "time": 45,
+      "skill": "engineering",
+      "inputs": [
+        { "item": "scrap_metal", "qty": 2 },
+        { "item": "plastic", "qty": 1 },
+        { "item": "wire", "qty": 1 }
+      ],
+      "outputs": [ { "item": "ammo_12gauge", "qty": 6 } ]
+    },
+    {
+      "id": "recipe_antibiotics",
+      "name": "Brew Antibiotics",
+      "station": "workbench",
+      "time": 240,
+      "skill": "medicine",
+      "inputs": [
+        { "item": "foraged_berries", "qty": 3 },
+        { "item": "water_clean", "qty": 1 },
+        { "item": "cloth", "qty": 1 }
+      ],
+      "outputs": [ { "item": "antibiotics", "qty": 1 } ]
+    },
+    {
+      "id": "recipe_antiviral",
+      "name": "Synthesize Antiviral",
+      "station": "workbench",
+      "time": 480,
+      "skill": "medicine",
+      "inputs": [
+        { "item": "antibiotics", "qty": 1 },
+        { "item": "foraged_berries", "qty": 5 },
+        { "item": "water_clean", "qty": 2 }
+      ],
+      "outputs": [ { "item": "antiviral", "qty": 1 } ]
+    },
+    {
+      "id": "recipe_first_aid",
+      "name": "Assemble First Aid Kit",
+      "station": "workbench",
+      "time": 30,
+      "skill": "medicine",
+      "inputs": [
+        { "item": "bandage", "qty": 2 },
+        { "item": "cloth", "qty": 1 },
+        { "item": "duct_tape", "qty": 1 }
+      ],
+      "outputs": [ { "item": "first_aid_kit", "qty": 1 } ]
+    },
+    {
+      "id": "recipe_wooden_spikes",
+      "name": "Craft Wooden Spikes",
+      "station": "hands",
+      "time": 20,
+      "skill": "engineering",
+      "inputs": [
+        { "item": "wood", "qty": 2 },
+        { "item": "glass_shard", "qty": 1 }
+      ],
+      "outputs": [ { "item": "wooden_spike", "qty": 4 } ]
+    }
+  ]
+}

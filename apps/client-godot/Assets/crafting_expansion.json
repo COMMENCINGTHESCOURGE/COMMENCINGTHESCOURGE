@@ -1,0 +1,93 @@
+{
+  "version": "1.0.0",
+  "note": "Crafting expansion. Sources: ARK (station tiers, quality, blueprint gating), Minecraft (shaped recipes, furnaces), 7 Days to Die (quality levels, mod slotting, part-based weapons), Project Zomboid (skill-gated recipes, literature unlocks).",
+
+  "station_tiers": {
+    "hands": { "name": "Hands", "tier": 0, "requires": null },
+    "campfire": { "name": "Campfire", "tier": 1, "requires": { "item": "campfire", "nearby": true } },
+    "workbench": { "name": "Workbench", "tier": 2, "requires": { "item": "workbench_sturdy", "nearby": true } },
+    "forge": { "name": "Forge", "tier": 3, "requires": { "item": "furnace", "nearby": true, "power": true } },
+    "chemistry": { "name": "Chemistry Station", "tier": 3, "requires": { "item": "chemistry_station", "nearby": true, "power": true } },
+    "garage": { "name": "Garage", "tier": 3, "requires": { "item": "garage_station", "nearby": true } }
+  },
+
+  "skills": {
+    "survival": { "name": "Survival", "description": "Fire, food, water, basic tools", "max_level": 5 },
+    "engineering": { "name": "Engineering", "description": "Build structures, repair vehicles, advanced tools", "max_level": 5 },
+    "medicine": { "name": "Medicine", "description": "First aid, pharmacology, surgery", "max_level": 5 },
+    "combat": { "name": "Combat", "description": "Weapons, tactics, ammunition crafting", "max_level": 5 },
+    "cooking": { "name": "Cooking", "description": "Food preparation, preserving, fermentation", "max_level": 3 }
+  },
+
+  "quality_tiers": {
+    "0": { "name": "Scrap", "damage_mod": 0.7, "durability_mod": 0.5, "craftable": true },
+    "1": { "name": "Standard", "damage_mod": 1.0, "durability_mod": 1.0, "craftable": true },
+    "2": { "name": "Reinforced", "damage_mod": 1.3, "durability_mod": 1.5, "craftable_at_tier": 2 },
+    "3": { "name": "Masterwork", "damage_mod": 1.7, "durability_mod": 2.5, "craftable_at_tier": 3 },
+    "4": { "name": "Legendary", "damage_mod": 2.2, "durability_mod": 4.0, "craftable_at_tier": 3, "requires_blueprint": true }
+  },
+
+  "crafting_recipes": {
+    "campfire": { "station": "hands", "skill": "survival", "skill_level": 1, "time": 20, "inputs": { "wood": 3, "stone": 2 }, "outputs": { "campfire": 1 } },
+    "workbench": { "station": "hands", "skill": "engineering", "skill_level": 1, "time": 45, "inputs": { "wood": 6, "nail": 10 }, "outputs": { "workbench_sturdy": 1 } },
+    "furnace": { "station": "workbench", "skill": "engineering", "skill_level": 2, "time": 60, "inputs": { "stone": 5, "scrap_metal": 3 }, "outputs": { "furnace": 1 } },
+    "chemistry_station": { "station": "workbench", "skill": "medicine", "skill_level": 2, "time": 90, "inputs": { "scrap_metal": 4, "wire": 2, "glass_shard": 2 }, "outputs": { "chemistry_station": 1 } },
+    "garage_station": { "station": "workbench", "skill": "engineering", "skill_level": 2, "time": 120, "inputs": { "scrap_metal": 6, "wire": 3, "motor": 1 }, "outputs": { "garage_station": 1 } },
+
+    "furniture_bed": { "station": "hands", "skill": "survival", "skill_level": 1, "time": 30, "inputs": { "wood": 4, "cloth": 2 }, "outputs": { "bed_single": 1 } },
+    "furniture_table": { "station": "hands", "skill": "survival", "skill_level": 1, "time": 15, "inputs": { "wood": 3 }, "outputs": { "table_wood": 1 } },
+    "furniture_chair": { "station": "hands", "skill": "survival", "skill_level": 1, "time": 10, "inputs": { "wood": 2 }, "outputs": { "chair_wood": 1 } },
+    "furniture_shelf": { "station": "hands", "skill": "survival", "skill_level": 1, "time": 20, "inputs": { "wood": 3, "nail": 4 }, "outputs": { "shelf": 1 } },
+    "furniture_cabinet": { "station": "workbench", "skill": "engineering", "skill_level": 1, "time": 25, "inputs": { "wood": 3, "nail": 2 }, "outputs": { "cabinet": 1 } },
+    "furniture_desk": { "station": "workbench", "skill": "engineering", "skill_level": 1, "time": 25, "inputs": { "wood": 4, "nail": 2 }, "outputs": { "desk": 1 } },
+
+    "tool_pickaxe": { "station": "hands", "skill": "survival", "skill_level": 1, "time": 20, "inputs": { "wood": 2, "scrap_metal": 3 }, "outputs": { "pickaxe": 1 } },
+    "tool_axe": { "station": "hands", "skill": "survival", "skill_level": 1, "time": 20, "inputs": { "wood": 2, "scrap_metal": 3 }, "outputs": { "axe": 1 } },
+    "tool_shovel": { "station": "hands", "skill": "survival", "skill_level": 1, "time": 15, "inputs": { "wood": 2, "scrap_metal": 2 }, "outputs": { "shovel": 1 } },
+    "tool_hammer": { "station": "hands", "skill": "engineering", "skill_level": 1, "time": 15, "inputs": { "wood": 1, "scrap_metal": 2 }, "outputs": { "hammer": 1 } },
+    "tool_crowbar": { "station": "forge", "skill": "engineering", "skill_level": 2, "time": 30, "inputs": { "scrap_metal": 4 }, "outputs": { "crowbar": 1 } },
+    "tool_welding_torch": { "station": "workbench", "skill": "engineering", "skill_level": 2, "time": 25, "inputs": { "scrap_metal": 3, "wire": 1 }, "outputs": { "welding_torch": 1 } },
+    "tool_flashlight": { "station": "workbench", "skill": "engineering", "skill_level": 2, "time": 20, "inputs": { "plastic": 1, "wire": 1, "battery": 1 }, "outputs": { "flashlight": 1 } },
+
+    "weapon_machete": { "station": "forge", "skill": "engineering", "skill_level": 2, "time": 60, "inputs": { "scrap_metal": 3, "duct_tape": 1 }, "outputs": { "machete": 1 } },
+    "weapon_spear": { "station": "hands", "skill": "survival", "skill_level": 1, "time": 15, "inputs": { "wood": 2, "glass_shard": 1 }, "outputs": { "spear": 1 } },
+    "weapon_bat_nailed": { "station": "hands", "skill": "engineering", "skill_level": 1, "time": 20, "inputs": { "baseball_bat": 1, "nail": 10 }, "outputs": { "bat_nailed": 1 } },
+    "weapon_crossbow": { "station": "workbench", "skill": "engineering", "skill_level": 2, "time": 90, "inputs": { "wood": 3, "wire": 1, "rope": 1 }, "outputs": { "crossbow": 1 } },
+    "weapon_bow": { "station": "hands", "skill": "survival", "skill_level": 2, "time": 30, "inputs": { "wood": 2, "rope": 1 }, "outputs": { "bow_wooden": 1 } },
+    "weapon_combat_shotgun": { "station": "garage", "skill": "engineering", "skill_level": 3, "time": 180, "inputs": { "scrap_metal": 4, "wood": 2 }, "outputs": { "shotgun_combat": 1 } },
+
+    "ammo_9mm": { "station": "workbench", "skill": "combat", "skill_level": 1, "time": 15, "inputs": { "scrap_metal": 1, "wire": 1, "ammo_powder": 1 }, "outputs": { "9mm": 10 } },
+    "ammo_12gauge": { "station": "workbench", "skill": "combat", "skill_level": 1, "time": 20, "inputs": { "scrap_metal": 1, "plastic": 1, "ammo_powder": 2 }, "outputs": { "12gauge": 6 } },
+    "ammo_308": { "station": "workbench", "skill": "combat", "skill_level": 2, "time": 25, "inputs": { "scrap_metal": 1, "wire": 1, "ammo_powder": 2 }, "outputs": { "308": 6 } },
+    "ammo_arrow": { "station": "hands", "skill": "survival", "skill_level": 1, "time": 10, "inputs": { "wood": 1, "glass_shard": 1 }, "outputs": { "arrow": 5 } },
+    "ammo_bolt": { "station": "workbench", "skill": "engineering", "skill_level": 1, "time": 15, "inputs": { "scrap_metal": 1, "wood": 1 }, "outputs": { "bolt": 5 } },
+
+    "medical_bandage": { "station": "hands", "skill": "medicine", "skill_level": 1, "time": 5, "inputs": { "cloth": 2 }, "outputs": { "bandage": 1 } },
+    "medical_bandage_imp": { "station": "hands", "skill": "survival", "skill_level": 1, "time": 3, "inputs": { "cloth": 1 }, "outputs": { "bandage_improvised": 1 } },
+    "medical_first_aid": { "station": "workbench", "skill": "medicine", "skill_level": 2, "time": 20, "inputs": { "bandage": 2, "cloth": 1, "duct_tape": 1 }, "outputs": { "first_aid_kit": 1 } },
+    "medical_antibiotics": { "station": "chemistry", "skill": "medicine", "skill_level": 2, "time": 60, "inputs": { "foraged_berries": 3, "water_clean": 1, "cloth": 1 }, "outputs": { "antibiotics": 1 } },
+    "medical_antiviral": { "station": "chemistry", "skill": "medicine", "skill_level": 3, "time": 120, "inputs": { "antibiotics": 1, "foraged_berries": 5, "water_clean": 2 }, "outputs": { "antiviral": 1 } },
+
+    "food_cook_meat": { "station": "campfire", "skill": "cooking", "skill_level": 1, "time": 20, "inputs": { "raw_meat": 1 }, "outputs": { "cooked_meat": 1 } },
+    "food_clean_water": { "station": "campfire", "skill": "survival", "skill_level": 1, "time": 10, "inputs": { "water_dirty": 1 }, "outputs": { "water_clean": 1 } },
+    "food_bake_bread": { "station": "campfire", "skill": "cooking", "skill_level": 2, "time": 30, "inputs": { "flour": 1, "water_clean": 1 }, "outputs": { "bread": 1 } },
+    "food_canned_meal": { "station": "campfire", "skill": "cooking", "skill_level": 1, "time": 15, "inputs": { "canned_beans": 1, "canned_meat": 1 }, "outputs": { "hearty_stew": 2 } },
+    "food_dry_meat": { "station": "campfire", "skill": "cooking", "skill_level": 2, "time": 120, "inputs": { "raw_meat": 3, "salt": 1 }, "outputs": { "jerky": 3 } },
+
+    "material_rope": { "station": "hands", "skill": "survival", "skill_level": 1, "time": 10, "inputs": { "cloth": 4 }, "outputs": { "rope": 1 } },
+    "material_concrete": { "station": "hands", "skill": "engineering", "skill_level": 1, "time": 15, "inputs": { "stone": 3 }, "outputs": { "concrete_block": 1 } },
+    "material_spike": { "station": "hands", "skill": "survival", "skill_level": 1, "time": 10, "inputs": { "wood": 1, "glass_shard": 1 }, "outputs": { "wooden_spike": 4 } },
+
+    "throwable_molotov": { "station": "hands", "skill": "combat", "skill_level": 1, "time": 10, "inputs": { "glass_shard": 1, "cloth": 1, "fuel": 1 }, "outputs": { "molotov": 1 } },
+    "throwable_pipe_bomb": { "station": "workbench", "skill": "engineering", "skill_level": 2, "time": 30, "inputs": { "pipe": 1, "ammo_powder": 2, "wire": 1 }, "outputs": { "pipe_bomb": 1 } },
+
+    "appliance_fridge": { "station": "garage", "skill": "engineering", "skill_level": 2, "time": 60, "inputs": { "scrap_metal": 3, "wire": 2, "motor": 1 }, "outputs": { "fridge": 1 } },
+    "appliance_generator": { "station": "garage", "skill": "engineering", "skill_level": 3, "time": 120, "inputs": { "motor": 1, "scrap_metal": 5, "wire": 3 }, "outputs": { "generator": 1 } },
+    "appliance_water_heater": { "station": "garage", "skill": "engineering", "skill_level": 2, "time": 45, "inputs": { "scrap_metal": 3, "wire": 1, "pipe": 1 }, "outputs": { "water_heater": 1 } },
+
+    "structure_wooden_door": { "station": "hands", "skill": "survival", "skill_level": 1, "time": 20, "inputs": { "wood": 4, "nail": 4 }, "outputs": { "wooden_door": 1 } },
+    "structure_metal_door": { "station": "forge", "skill": "engineering", "skill_level": 2, "time": 45, "inputs": { "scrap_metal": 4, "nail": 6 }, "outputs": { "metal_door": 1 } },
+    "structure_wooden_wall": { "station": "hands", "skill": "survival", "skill_level": 1, "time": 30, "inputs": { "wood": 5, "nail": 6 }, "outputs": { "wooden_wall_panel": 1 } },
+    "structure_metal_wall": { "station": "forge", "skill": "engineering", "skill_level": 2, "time": 60, "inputs": { "scrap_metal": 4, "nail": 8 }, "outputs": { "metal_wall_panel": 1 } }
+  }
+}

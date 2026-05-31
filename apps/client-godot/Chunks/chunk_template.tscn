@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bcdp0x7hjlrrn"]
+
+[node name="Chunk" type="Node3D"]
+
+[node name="Ground" type="MeshInstance3D"]
+mesh = SubResource("Box")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, -0.5, 50)
+
+[node name="GroundBody" type="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, -0.5, 50)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GroundBody"]
+shape = SubResource("Box")

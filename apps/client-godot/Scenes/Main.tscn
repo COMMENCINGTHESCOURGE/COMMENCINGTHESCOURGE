@@ -1,0 +1,151 @@
+[gd_scene load_steps=21 format=3 uid="uid://b4m0c8vjncbh2"]
+
+[ext_resource type="Script" path="res://Scripts/Player.cs" id="1"]
+[ext_resource type="Script" path="res://Scripts/WorldStreamer.cs" id="2"]
+[ext_resource type="Script" path="res://Scripts/PlayerHUD.cs" id="3"]
+[ext_resource type="PackedScene" path="res://Chunks/chunk_template.tscn" id="4"]
+[ext_resource type="Script" path="res://Scripts/NPC.cs" id="5"]
+[ext_resource type="PackedScene" path="res://Scenes/Zombie.tscn" id="6"]
+[ext_resource type="Script" path="res://Scripts/ZombieSpawner.cs" id="7"]
+[ext_resource type="Script" path="res://Scripts/ItemDatabase.cs" id="8"]
+[ext_resource type="Script" path="res://Scripts/BuildingGrid.cs" id="9"]
+[ext_resource type="Script" path="res://Scripts/MultiplayerManager.cs" id="10"]
+[ext_resource type="Script" path="res://Scripts/AntiGrief.cs" id="11"]
+[ext_resource type="Script" path="res://Scripts/PropagationSystem.cs" id="12"]
+[ext_resource type="PackedScene" path="res://UI/MainHUD.tscn" id="13"]
+[ext_resource type="PackedScene" path="res://UI/InventoryPanel.tscn" id="14"]
+[ext_resource type="PackedScene" path="res://UI/CraftingPanel.tscn" id="15"]
+[ext_resource type="PackedScene" path="res://UI/BuildingUI.tscn" id="16"]
+[ext_resource type="PackedScene" path="res://UI/MinimapPanel.tscn" id="17"]
+[ext_resource type="PackedScene" path="res://UI/LootWindow.tscn" id="18"]
+[ext_resource type="Script" path="res://Scripts/InteractionSystem.cs" id="19"]
+[ext_resource type="Script" path="res://Scripts/RoadNetwork.cs" id="20"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
+sky_top_color = Color(0.08, 0.12, 0.2, 1)
+sky_horizon_color = Color(0.22, 0.2, 0.2, 1)
+ground_bottom_color = Color(0.05, 0.05, 0.07, 1)
+ground_horizon_color = Color(0.22, 0.2, 0.2, 1)
+
+[sub_resource type="Sky" id="Sky_sky"]
+sky_material = SubResource("ProceduralSkyMaterial_sky")
+
+[sub_resource type="Environment" id="Environment"]
+background_mode = 2
+sky = SubResource("Sky_sky")
+tonemap_mode = 3
+tonemap_exposure = 1.15
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
+glow_enabled = true
+glow_intensity = 0.6
+glow_strength = 0.95
+glow_bloom = 0.12
+glow_blend_mode = 0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.025
+volumetric_fog_albedo = Color(0.75, 0.8, 0.85, 1)
+volumetric_fog_emission = Color(0.005, 0.005, 0.01, 1)
+volumetric_fog_gi_inject = 1.0
+
+[sub_resource type="CapsuleShape3D" id="Capsule"]
+height = 2.0
+radius = 0.5
+
+[sub_resource type="CylinderMesh" id="Cylinder"]
+top_radius = 0.3
+bottom_radius = 0.3
+height = 1.8
+
+[node name="World" type="Node3D"]
+
+[node name="ItemDatabase" type="Node" parent="."]
+script = ExtResource("8")
+
+[node name="BuildingGrid" type="Node3D" parent="."]
+script = ExtResource("9")
+
+[node name="MultiplayerManager" type="Node" parent="."]
+script = ExtResource("10")
+
+[node name="AntiGrief" type="Node" parent="."]
+script = ExtResource("11")
+
+[node name="PropagationSystem" type="Node3D" parent="."]
+script = ExtResource("12")
+
+[node name="RoadNetwork" type="Node3D" parent="."]
+script = ExtResource("20")
+
+[node name="UI" type="Node" parent="."]
+
+[node name="MainHUD" type="CanvasLayer" parent="UI"]
+instance = ExtResource("13")
+
+[node name="InventoryPanel" type="Panel" parent="UI"]
+instance = ExtResource("14")
+
+[node name="CraftingPanel" type="Panel" parent="UI"]
+instance = ExtResource("15")
+
+[node name="BuildingUI" type="Control" parent="UI"]
+instance = ExtResource("16")
+
+[node name="MinimapPanel" type="CanvasLayer" parent="UI"]
+instance = ExtResource("17")
+
+[node name="LootWindow" type="Panel" parent="UI"]
+instance = ExtResource("18")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866, 0.5, 0, 0, 0, 1, 0.5, -0.866, 0, 0, 10, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment")
+
+[node name="Player" type="CharacterBody3D" parent="."]
+position = Vector3(0, 2, 0)
+script = ExtResource("1")
+
+[node name="Head" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Player/Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("Capsule")
+
+[node name="InteractionSystem" type="Node3D" parent="Player"]
+script = ExtResource("19")
+
+[node name="WorldStreamer" type="Node" parent="."]
+script = ExtResource("2")
+ChunkTemplate = ExtResource("4")
+
+[node name="ZombieSpawner" type="Node" parent="."]
+script = ExtResource("7")
+ZombieScene = ExtResource("6")
+
+[node name="NPC_Marcus" type="CharacterBody3D" parent="."]
+position = Vector3(8, 2, 8)
+script = ExtResource("5")
+NpcName = "Marcus"
+NpcRole = "guard"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NPC_Marcus"]
+shape = SubResource("Capsule")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NPC_Marcus"]
+mesh = SubResource("Cylinder")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="DialogueBubble" type="Label3D" parent="NPC_Marcus"]
+position = Vector3(0, 3, 0)
+pixel_size = 0.01
+font_size = 32
+modulate = Color(1, 1, 1, 1)

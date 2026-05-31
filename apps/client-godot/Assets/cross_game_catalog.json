@@ -1,0 +1,144 @@
+{
+  "version": "1.0.0",
+  "purpose": "Cross-game asset catalog. Every entry maps to a known object from Sims, ARK, Minecraft, PUBG, Project Zomboid, or 7 Days to Die. The function is documented; the source game is noted so you can look up reference screenshots.",
+
+  "furniture": {
+    "bed_single": { "source": "Sims", "slot": "furniture", "size": [1, 2], "function": "sleep", "restores": { "fatigue": -0.4 }, "craftable": true, "materials": { "wood": 4, "cloth": 2 } },
+    "bed_double": { "source": "Sims", "slot": "furniture", "size": [2, 2], "function": "sleep", "restores": { "fatigue": -0.6, "morale": 0.1 }, "craftable": true, "materials": { "wood": 6, "cloth": 4 } },
+    "couch": { "source": "Sims", "slot": "furniture", "size": [1, 3], "function": "rest", "restores": { "fatigue": -0.15, "morale": 0.05 }, "craftable": true, "materials": { "wood": 3, "cloth": 3 } },
+    "table_wood": { "source": "Minecraft", "slot": "furniture", "size": [1, 1], "function": "surface", "craftable": true, "materials": { "wood": 3 } },
+    "chair_wood": { "source": "Minecraft", "slot": "furniture", "size": [1, 1], "function": "sit", "craftable": true, "materials": { "wood": 2 } },
+    "shelf": { "source": "Sims", "slot": "furniture", "size": [1, 2], "function": "storage", "capacity": 8, "craftable": true, "materials": { "wood": 3, "nail": 4 } },
+    "cabinet": { "source": "Sims", "slot": "furniture", "size": [1, 1], "function": "storage", "capacity": 6, "craftable": true, "materials": { "wood": 3, "nail": 2 } },
+    "bookshelf": { "source": "Minecraft", "slot": "furniture", "size": [1, 1], "function": "storage + morale", "restores": { "morale": 0.05 }, "capacity": 4, "craftable": true, "materials": { "wood": 4, "paper": 3 } },
+    "desk": { "source": "Sims", "slot": "furniture", "size": [1, 2], "function": "workbench surface", "craftable": true, "materials": { "wood": 4, "nail": 2 } },
+    "locker": { "source": "PUBG", "slot": "furniture", "size": [1, 1], "function": "storage", "capacity": 10, "craftable": false },
+    "filing_cabinet": { "source": "PUBG", "slot": "furniture", "size": [1, 1], "function": "storage", "capacity": 8, "craftable": false },
+    "pallet": { "source": "7 Days", "slot": "furniture", "size": [1, 2], "function": "storage + material", "capacity": 4, "craftable": true, "materials": { "wood": 2 } },
+    "workbench_sturdy": { "source": "ARK", "slot": "furniture", "size": [1, 2], "function": "crafting station", "craftable": true, "materials": { "wood": 6, "nail": 8, "scrap_metal": 2 } },
+    "campfire": { "source": "Minecraft", "slot": "furniture", "size": [1, 1], "function": "cook + light + heat", "craftable": true, "materials": { "wood": 3, "stone": 2 } },
+    "furnace": { "source": "Minecraft", "slot": "furniture", "size": [1, 1], "function": "smelt + forge", "craftable": true, "materials": { "stone": 5, "scrap_metal": 2 } },
+    "chemistry_station": { "source": "7 Days", "slot": "furniture", "size": [1, 2], "function": "craft medicine + chemicals", "craftable": true, "materials": { "scrap_metal": 4, "wire": 2, "glass_shard": 2 } },
+    "water_catcher": { "source": "7 Days", "slot": "furniture", "size": [1, 1], "function": "collect rainwater", "craftable": true, "materials": { "plastic": 3, "wood": 2 } },
+    "solar_panel_placed": { "source": "Project Zomboid", "slot": "furniture", "size": [1, 2], "function": "generate power (50W)", "craftable": true, "materials": { "solar_panel": 1, "wire": 3, "duct_tape": 1 } },
+    "generator": { "source": "Project Zomboid", "slot": "furniture", "size": [1, 1], "function": "generate power (500W, uses fuel)", "craftable": true, "materials": { "motor": 1, "scrap_metal": 5, "wire": 3 } },
+    "water_barrel": { "source": "7 Days", "slot": "furniture", "size": [1, 1], "function": "store water (50L)", "capacity": 50, "craftable": true, "materials": { "plastic": 4, "duct_tape": 1 } }
+  },
+
+  "appliances": {
+    "fridge": { "source": "Sims", "slot": "appliance", "size": [1, 1], "function": "food storage (slows spoilage 3x)", "craftable": true, "materials": { "scrap_metal": 3, "wire": 2, "motor": 1 } },
+    "oven": { "source": "Sims", "slot": "appliance", "size": [1, 1], "function": "cook food (fast)", "craftable": true, "materials": { "scrap_metal": 4, "wire": 2 } },
+    "washing_machine": { "source": "Sims", "slot": "appliance", "size": [1, 1], "function": "clean cloth (morale)", "craftable": true, "materials": { "scrap_metal": 3, "motor": 1 } },
+    "microwave": { "source": "Sims", "slot": "appliance", "size": [1, 1], "function": "heat food (fast, low power)", "craftable": false },
+    "coffee_maker": { "source": "Sims", "slot": "appliance", "size": [1, 1], "function": "brew coffee (restores fatigue)", "restores": { "fatigue": -0.2, "morale": 0.05 }, "craftable": false },
+    "water_heater": { "source": "Sims", "slot": "appliance", "size": [1, 1], "function": "heat water (hygiene, morale)", "craftable": true, "materials": { "scrap_metal": 3, "wire": 1, "pipe": 1 } },
+    "sink": { "source": "Sims", "slot": "appliance", "size": [1, 1], "function": "running water (requires plumbing)", "craftable": true, "materials": { "scrap_metal": 2, "pipe": 1 } },
+    "toilet": { "source": "Sims", "slot": "appliance", "size": [1, 1], "function": "sanitation (requires plumbing)", "craftable": true, "materials": { "plastic": 2, "pipe": 1 } },
+    "shower": { "source": "Sims", "slot": "appliance", "size": [1, 1], "function": "hygiene (morale + reduces infection risk)", "restores": { "morale": 0.15, "infection": -0.02 }, "craftable": true, "materials": { "plastic": 3, "pipe": 2 } },
+    "stove_camp": { "source": "ARK", "slot": "appliance", "size": [1, 1], "function": "portable cooking (no power needed)", "craftable": true, "materials": { "scrap_metal": 2 } }
+  },
+
+  "tools": {
+    "pickaxe": { "source": "Minecraft", "slot": "tool", "function": "mine stone/ore, melee weapon", "damage": 8, "durability": 60, "craftable": true, "materials": { "wood": 2, "scrap_metal": 3 } },
+    "axe": { "source": "Minecraft", "slot": "tool", "function": "chop wood, melee weapon", "damage": 10, "durability": 60, "craftable": true, "materials": { "wood": 2, "scrap_metal": 3 } },
+    "shovel": { "source": "Minecraft", "slot": "tool", "function": "dig trenches/graves/farming", "damage": 5, "durability": 40, "craftable": true, "materials": { "wood": 2, "scrap_metal": 2 } },
+    "hammer": { "source": "7 Days", "slot": "tool", "function": "build/repair structures, melee weapon", "damage": 7, "durability": 80, "craftable": true, "materials": { "wood": 1, "scrap_metal": 2 } },
+    "screwdriver": { "source": "Project Zomboid", "slot": "tool", "function": "salvage electronics, jam locks", "durability": 20, "craftable": false },
+    "wrench": { "source": "Project Zomboid", "slot": "tool", "function": "salvage mechanical parts, melee weapon", "damage": 8, "durability": 50, "craftable": true, "materials": { "scrap_metal": 3 } },
+    "crowbar": { "source": "Project Zomboid", "slot": "tool", "function": "pry doors/crates, melee weapon", "damage": 12, "durability": 100, "craftable": true, "materials": { "scrap_metal": 4 } },
+    "handsaw": { "source": "Minecraft", "slot": "tool", "function": "cut wood (faster than axe)", "durability": 30, "craftable": false },
+    "sledgehammer": { "source": "7 Days", "slot": "tool", "function": "demolish structures, heavy melee", "damage": 25, "durability": 100, "craftable": true, "materials": { "wood": 3, "scrap_metal": 5 } },
+    "welding_torch": { "source": "ARK", "slot": "tool", "function": "weld metal, repair vehicles", "durability": 30, "fuel_type": "propane", "craftable": true, "materials": { "scrap_metal": 3, "wire": 1 } },
+    "pipe_wrench": { "source": "Project Zomboid", "slot": "tool", "function": "salvage plumbing, melee weapon", "damage": 10, "durability": 40, "craftable": false },
+    "flashlight": { "source": "PUBG", "slot": "tool", "function": "illuminate, attracts zombies at night", "durability": 100, "battery_drain": 0.01, "craftable": true, "materials": { "plastic": 1, "wire": 1, "battery": 1 } },
+    "binoculars": { "source": "PUBG", "slot": "tool", "function": "scout distant areas (2x zoom)", "durability": 100, "craftable": false }
+  },
+
+  "weapons_melee": {
+    "fists": { "source": "generic", "slot": "unarmed", "damage": 3, "stamina_cost": 2, "range": 1.0, "noise": 0.02, "always_available": true },
+    "kitchen_knife": { "source": "Project Zomboid", "slot": "hand", "damage": 8, "stamina_cost": 3, "range": 1.0, "noise": 0.02, "durability": 25, "craftable": false },
+    "machete": { "source": "Project Zomboid", "slot": "hand", "damage": 18, "stamina_cost": 6, "range": 1.8, "noise": 0.05, "durability": 80, "craftable": true, "materials": { "scrap_metal": 3, "duct_tape": 1 } },
+    "baseball_bat": { "source": "7 Days", "slot": "hand", "damage": 12, "stamina_cost": 5, "range": 2.0, "noise": 0.1, "durability": 60, "craftable": false },
+    "bat_nailed": { "source": "7 Days", "slot": "hand", "damage": 18, "stamina_cost": 6, "range": 2.0, "noise": 0.12, "durability": 70, "craftable": true, "materials": { "baseball_bat": 1, "nail": 10 } },
+    "spear": { "source": "ARK", "slot": "hand", "damage": 12, "stamina_cost": 4, "range": 2.5, "noise": 0.03, "durability": 20, "craftable": true, "materials": { "wood": 2, "glass_shard": 1 } },
+    "mace": { "source": "ARK", "slot": "hand", "damage": 22, "stamina_cost": 8, "range": 2.0, "noise": 0.08, "durability": 60, "craftable": true, "materials": { "wood": 2, "scrap_metal": 2 } },
+    "fire_axe": { "source": "Project Zomboid", "slot": "hand", "damage": 28, "stamina_cost": 10, "range": 2.2, "noise": 0.08, "durability": 100, "craftable": false },
+    "katana": { "source": "7 Days", "slot": "hand", "damage": 35, "stamina_cost": 7, "range": 2.0, "noise": 0.04, "durability": 120, "craftable": true, "materials": { "scrap_metal": 4, "duct_tape": 1 } }
+  },
+
+  "weapons_ranged": {
+    "pistol_9mm": { "source": "PUBG", "slot": "hand", "damage": 22, "range": 30, "noise": 0.6, "ammo_type": "9mm", "magazine": 12, "reload_time": 2.0, "durability": 100, "craftable": false },
+    "pistol_45": { "source": "PUBG", "slot": "hand", "damage": 28, "range": 25, "noise": 0.65, "ammo_type": "45acp", "magazine": 8, "reload_time": 2.0, "durability": 100, "craftable": false },
+    "revolver": { "source": "Project Zomboid", "slot": "hand", "damage": 35, "range": 25, "noise": 0.7, "ammo_type": "357", "magazine": 6, "reload_time": 3.0, "durability": 150, "craftable": false },
+    "shotgun_pump": { "source": "PUBG", "slot": "hand", "damage": 60, "range": 15, "noise": 0.9, "ammo_type": "12gauge", "magazine": 6, "reload_time": 3.5, "durability": 80, "craftable": false },
+    "shotgun_combat": { "source": "7 Days", "slot": "hand", "damage": 45, "range": 20, "noise": 0.85, "ammo_type": "12gauge", "magazine": 8, "reload_time": 2.5, "durability": 100, "craftable": true, "materials": { "scrap_metal": 4, "wood": 2 } },
+    "rifle_bolt": { "source": "PUBG", "slot": "hand", "damage": 55, "range": 60, "noise": 0.8, "ammo_type": "308", "magazine": 5, "reload_time": 4.0, "durability": 120, "craftable": false },
+    "rifle_semiauto": { "source": "7 Days", "slot": "hand", "damage": 35, "range": 45, "noise": 0.7, "ammo_type": "308", "magazine": 10, "reload_time": 3.0, "durability": 100, "craftable": false },
+    "rifle_assault": { "source": "PUBG", "slot": "hand", "damage": 30, "range": 40, "noise": 0.75, "ammo_type": "556", "magazine": 30, "reload_time": 2.5, "durability": 120, "craftable": false },
+    "smg": { "source": "PUBG", "slot": "hand", "damage": 18, "range": 25, "noise": 0.5, "ammo_type": "9mm", "magazine": 35, "reload_time": 2.0, "durability": 80, "craftable": false },
+    "crossbow": { "source": "7 Days", "slot": "hand", "damage": 40, "range": 25, "noise": 0.05, "ammo_type": "bolt", "magazine": 1, "reload_time": 3.0, "durability": 60, "craftable": true, "materials": { "wood": 3, "wire": 1, "rope": 1 } },
+    "bow_wooden": { "source": "ARK", "slot": "hand", "damage": 18, "range": 20, "noise": 0.03, "ammo_type": "arrow", "magazine": 1, "reload_time": 2.0, "durability": 30, "craftable": true, "materials": { "wood": 2, "rope": 1 } },
+    "compound_bow": { "source": "Project Zomboid", "slot": "hand", "damage": 35, "range": 30, "noise": 0.02, "ammo_type": "arrow", "magazine": 1, "reload_time": 2.5, "durability": 80, "craftable": false }
+  },
+
+  "weapon_attachments": {
+    "silencer_pistol": { "source": "PUBG", "slot": "attachment_muzzle", "function": "reduce noise 70%", "compatible": "pistol" },
+    "silencer_rifle": { "source": "PUBG", "slot": "attachment_muzzle", "function": "reduce noise 60%", "compatible": "rifle" },
+    "scope_reddot": { "source": "PUBG", "slot": "attachment_sight", "function": "improve accuracy 10%", "compatible": "any" },
+    "scope_4x": { "source": "PUBG", "slot": "attachment_sight", "function": "improve accuracy 25%, zoom 4x", "compatible": "rifle" },
+    "scope_8x": { "source": "PUBG", "slot": "attachment_sight", "function": "improve accuracy 40%, zoom 8x", "compatible": "rifle_bolt" },
+    "extended_mag": { "source": "PUBG", "slot": "attachment_mag", "function": "increase magazine capacity 50%", "compatible": "any" },
+    "grip": { "source": "PUBG", "slot": "attachment_grip", "function": "reduce recoil 15%", "compatible": "any" },
+    "stock": { "source": "PUBG", "slot": "attachment_stock", "function": "reduce recoil 20%", "compatible": "rifle" }
+  },
+
+  "ammo_types": {
+    "9mm": { "source": "generic", "stack": 50, "weight": 0.02, "craftable": true, "materials": { "scrap_metal": 1, "wire": 1, "ammo_powder": 1 }, "yield": 10 },
+    "45acp": { "source": "generic", "stack": 50, "weight": 0.03, "craftable": true, "materials": { "scrap_metal": 1, "wire": 1, "ammo_powder": 1 }, "yield": 8 },
+    "357": { "source": "generic", "stack": 30, "weight": 0.04, "craftable": true, "materials": { "scrap_metal": 1, "wire": 1, "ammo_powder": 2 }, "yield": 6 },
+    "12gauge": { "source": "generic", "stack": 25, "weight": 0.05, "craftable": true, "materials": { "scrap_metal": 1, "plastic": 1, "ammo_powder": 2 }, "yield": 6 },
+    "308": { "source": "generic", "stack": 30, "weight": 0.04, "craftable": true, "materials": { "scrap_metal": 1, "wire": 1, "ammo_powder": 2 }, "yield": 6 },
+    "556": { "source": "generic", "stack": 40, "weight": 0.03, "craftable": true, "materials": { "scrap_metal": 1, "wire": 1, "ammo_powder": 1 }, "yield": 10 },
+    "arrow": { "source": "ARK", "stack": 50, "weight": 0.01, "craftable": true, "materials": { "wood": 1, "glass_shard": 1 }, "yield": 5 },
+    "bolt": { "source": "7 Days", "stack": 25, "weight": 0.02, "craftable": true, "materials": { "scrap_metal": 1, "wood": 1 }, "yield": 5 }
+  },
+
+  "vehicles": {
+    "sedan": { "source": "PUBG", "type": "car", "seats": 4, "speed": 80, "fuel_capacity": 50, "fuel_efficiency": 0.5, "noise": 0.6, "durability": 200, "storage": 20 },
+    "pickup": { "source": "Project Zomboid", "type": "car", "seats": 2, "speed": 70, "fuel_capacity": 60, "fuel_efficiency": 0.4, "noise": 0.7, "durability": 300, "storage": 40 },
+    "suv": { "source": "PUBG", "type": "car", "seats": 5, "speed": 75, "fuel_capacity": 55, "fuel_efficiency": 0.35, "noise": 0.65, "durability": 280, "storage": 30 },
+    "sports_car": { "source": "PUBG", "type": "car", "seats": 2, "speed": 120, "fuel_capacity": 40, "fuel_efficiency": 0.3, "noise": 0.8, "durability": 120, "storage": 8 },
+    "motorcycle": { "source": "Project Zomboid", "type": "bike", "seats": 1, "speed": 90, "fuel_capacity": 15, "fuel_efficiency": 0.8, "noise": 0.7, "durability": 80, "storage": 4 },
+    "bicycle": { "source": "Project Zomboid", "type": "bike", "seats": 1, "speed": 25, "fuel_capacity": 0, "fuel_efficiency": 1.0, "noise": 0.02, "durability": 60, "storage": 2, "infinite": true },
+    "boat": { "source": "PUBG", "type": "boat", "seats": 4, "speed": 50, "fuel_capacity": 40, "fuel_efficiency": 0.3, "noise": 0.5, "durability": 150, "storage": 15 },
+    "apc": { "source": "PUBG", "type": "armored", "seats": 6, "speed": 40, "fuel_capacity": 100, "fuel_efficiency": 0.15, "noise": 0.9, "durability": 800, "storage": 40, "armor": 0.8 }
+  },
+
+  "resources": {
+    "wood": { "source": "Minecraft", "category": "material", "stack": 20, "weight": 0.5, "found_in": ["forest", "suburban", "warehouse", "hardware_store"] },
+    "stone": { "source": "Minecraft", "category": "material", "stack": 20, "weight": 0.8, "found_in": ["mountains", "quarry", "construction_site"] },
+    "scrap_metal": { "source": "7 Days", "category": "material", "stack": 20, "weight": 0.8, "found_in": ["warehouse", "industrial", "garage", "car_wreck"] },
+    "cloth": { "source": "Minecraft", "category": "material", "stack": 20, "weight": 0.05, "found_in": ["bedroom", "closet", "department_store"] },
+    "nail": { "source": "7 Days", "category": "material", "stack": 50, "weight": 0.02, "found_in": ["hardware_store", "garage", "construction_site"] },
+    "duct_tape": { "source": "Project Zomboid", "category": "material", "stack": 10, "weight": 0.1, "found_in": ["hardware_store", "garage", "warehouse"] },
+    "wire": { "source": "7 Days", "category": "material", "stack": 20, "weight": 0.1, "found_in": ["hardware_store", "warehouse", "electronics_store"] },
+    "rope": { "source": "ARK", "category": "material", "stack": 10, "weight": 0.3, "craftable": true, "materials": { "cloth": 4 } },
+    "plastic": { "source": "Minecraft", "category": "material", "stack": 20, "weight": 0.1, "found_in": ["warehouse", "hardware_store", "dump"] },
+    "glass_shard": { "source": "7 Days", "category": "material", "stack": 20, "weight": 0.05, "found_in": ["ruins", "construction_site", "smashed_window"] },
+    "pipe": { "source": "Project Zomboid", "category": "material", "stack": 10, "weight": 0.5, "found_in": ["hardware_store", "garage", "basement"] },
+    "ammo_powder": { "source": "7 Days", "category": "component", "stack": 30, "weight": 0.01, "found_in": ["gun_store", "police_station", "military_base"] },
+    "battery": { "source": "Project Zomboid", "category": "component", "stack": 5, "weight": 2.0, "found_in": ["garage", "car", "hardware_store"] },
+    "motor": { "source": "7 Days", "category": "component", "stack": 1, "weight": 3.0, "found_in": ["garage", "warehouse", "car_wreck"] },
+    "propane_tank": { "source": "Project Zomboid", "category": "component", "stack": 1, "weight": 5.0, "found_in": ["garage", "hardware_store", "camping_supply"] },
+    "leather": { "source": "ARK", "category": "material", "stack": 10, "weight": 0.3, "found_in": ["zombie_drop", "closet"] },
+    "paper": { "source": "Minecraft", "category": "material", "stack": 30, "weight": 0.01, "found_in": ["office", "school", "bedroom"] }
+  },
+
+  "resources_derived": {
+    "wooden_spike": { "source": "7 Days", "category": "material", "stack": 20, "weight": 0.3, "craftable": true, "materials": { "wood": 1, "glass_shard": 1 }, "yield": 4 },
+    "concrete_block": { "source": "7 Days", "category": "material", "stack": 10, "weight": 3.0, "craftable": true, "materials": { "stone": 3 } },
+    "molotov": { "source": "Project Zomboid", "category": "weapon_throwable", "stack": 3, "weight": 0.3, "damage": 40, "aoe": 3, "craftable": true, "materials": { "glass_shard": 1, "cloth": 1, "fuel": 1 } },
+    "pipe_bomb": { "source": "7 Days", "category": "weapon_throwable", "stack": 5, "weight": 0.3, "damage": 60, "aoe": 4, "craftable": true, "materials": { "pipe": 1, "ammo_powder": 2, "wire": 1 } },
+    "flare": { "source": "PUBG", "category": "tool", "stack": 3, "weight": 0.1, "function": "signal + light (attracts attention)", "craftable": true, "materials": { "scrap_metal": 1, "ammo_powder": 1, "cloth": 1 } }
+  }
+}

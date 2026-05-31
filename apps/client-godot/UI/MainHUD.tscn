@@ -1,0 +1,343 @@
+[gd_scene load_steps=8 format=3 uid="uid://cq5xlr0m5ydtc"]
+
+[sub_resource type="StyleBoxFlat" id="bg_style"]
+bg_color = Color(0.1, 0.1, 0.12, 0.85)
+corner_radius_bottom_left = 6
+corner_radius_bottom_right = 6
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+
+[sub_resource type="StyleBoxFlat" id="bar_bg"]
+bg_color = Color(0.15, 0.15, 0.18, 0.6)
+corner_radius_bottom_left = 3
+corner_radius_bottom_right = 3
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+
+[sub_resource type="StyleBoxFlat" id="bar_hunger_fill"]
+bg_color = Color(0.27, 0.53, 0.27, 1)
+corner_radius_bottom_left = 3
+corner_radius_bottom_right = 3
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+
+[sub_resource type="StyleBoxFlat" id="bar_thirst_fill"]
+bg_color = Color(0.27, 0.4, 0.8, 1)
+corner_radius_bottom_left = 3
+corner_radius_bottom_right = 3
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+
+[sub_resource type="StyleBoxFlat" id="bar_fatigue_fill"]
+bg_color = Color(0.67, 0.53, 0.13, 1)
+corner_radius_bottom_left = 3
+corner_radius_bottom_right = 3
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+
+[sub_resource type="StyleBoxFlat" id="bar_infection_fill"]
+bg_color = Color(0.53, 0.27, 0.67, 1)
+corner_radius_bottom_left = 3
+corner_radius_bottom_right = 3
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+
+[sub_resource type="StyleBoxFlat" id="bar_morale_fill"]
+bg_color = Color(0.27, 0.53, 0.8, 1)
+corner_radius_bottom_left = 3
+corner_radius_bottom_right = 3
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+
+[node name="MainHUD" type="CanvasLayer"]
+layer = 10
+
+[node name="PanelBg" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+self_modulate = Color(1, 1, 1, 0.9)
+
+[node name="TopLeft" type="VBoxContainer" parent="."]
+offset_left = 12.0
+offset_top = 8.0
+size_flags_horizontal = 3
+
+[node name="Header" type="HBoxContainer" parent="TopLeft"]
+
+[node name="DayLabel" type="Label" parent="TopLeft/Header"]
+theme_overrides = { "font_sizes/font_size": 14, "colors/font_color": Color(0.88, 0.88, 0.88, 1) }
+text = "Day -10"
+
+[node name="TimeLabel" type="Label" parent="TopLeft/Header"]
+offset_left = 8.0
+theme_overrides = { "font_sizes/font_size": 14, "colors/font_color": Color(0.5, 0.5, 0.5, 1) }
+text = "06:00"
+
+[node name="WeatherLabel" type="Label" parent="TopLeft"]
+theme_overrides = { "font_sizes/font_size": 11, "colors/font_color": Color(0.7, 0.7, 0.7, 1) }
+text = "Clear — Summer"
+
+[node name="PopulationLabel" type="Label" parent="TopLeft"]
+theme_overrides = { "font_sizes/font_size": 11, "colors/font_color": Color(0.6, 0.6, 0.6, 1) }
+text = "Population: 0"
+
+[node name="CurrencyLabel" type="Label" parent="TopLeft"]
+theme_overrides = { "font_sizes/font_size": 11, "colors/font_color": Color(0.8, 0.6, 0.2, 1) }
+text = "Cash: 100%"
+
+[node name="Bars" type="VBoxContainer" parent="."]
+offset_left = 12.0
+offset_top = 110.0
+custom_minimum_size = Vector2(180, 0)
+
+[node name="HungerRow" type="HBoxContainer" parent="Bars"]
+custom_minimum_size = Vector2(0, 18)
+
+[node name="HungerIcon" type="Label" parent="Bars/HungerRow"]
+text = "H"
+theme_overrides = { "font_sizes/font_size": 10, "colors/font_color": Color(0.4, 0.4, 0.4, 1) }
+custom_minimum_size = Vector2(16, 0)
+
+[node name="HungerBar" type="ProgressBar" parent="Bars/HungerRow"]
+custom_minimum_size = Vector2(160, 12)
+size_flags_horizontal = 3
+max_value = 100.0
+value = 100.0
+theme_overrides = { "styles/background": SubResource("bar_bg"), "styles/fill": SubResource("bar_hunger_fill") }
+
+[node name="HungerPct" type="Label" parent="Bars/HungerRow"]
+text = "100%"
+theme_overrides = { "font_sizes/font_size": 10, "colors/font_color": Color(0.5, 0.5, 0.5, 1) }
+custom_minimum_size = Vector2(36, 0)
+
+[node name="ThirstRow" type="HBoxContainer" parent="Bars"]
+custom_minimum_size = Vector2(0, 18)
+
+[node name="ThirstIcon" type="Label" parent="Bars/ThirstRow"]
+text = "T"
+theme_overrides = { "font_sizes/font_size": 10, "colors/font_color": Color(0.4, 0.4, 0.4, 1) }
+custom_minimum_size = Vector2(16, 0)
+
+[node name="ThirstBar" type="ProgressBar" parent="Bars/ThirstRow"]
+custom_minimum_size = Vector2(160, 12)
+size_flags_horizontal = 3
+max_value = 100.0
+value = 100.0
+theme_overrides = { "styles/background": SubResource("bar_bg"), "styles/fill": SubResource("bar_thirst_fill") }
+
+[node name="ThirstPct" type="Label" parent="Bars/ThirstRow"]
+text = "100%"
+theme_overrides = { "font_sizes/font_size": 10, "colors/font_color": Color(0.5, 0.5, 0.5, 1) }
+custom_minimum_size = Vector2(36, 0)
+
+[node name="FatigueRow" type="HBoxContainer" parent="Bars"]
+custom_minimum_size = Vector2(0, 18)
+
+[node name="FatigueIcon" type="Label" parent="Bars/FatigueRow"]
+text = "F"
+theme_overrides = { "font_sizes/font_size": 10, "colors/font_color": Color(0.4, 0.4, 0.4, 1) }
+custom_minimum_size = Vector2(16, 0)
+
+[node name="FatigueBar" type="ProgressBar" parent="Bars/FatigueRow"]
+custom_minimum_size = Vector2(160, 12)
+size_flags_horizontal = 3
+max_value = 100.0
+value = 100.0
+theme_overrides = { "styles/background": SubResource("bar_bg"), "styles/fill": SubResource("bar_fatigue_fill") }
+
+[node name="FatiguePct" type="Label" parent="Bars/FatigueRow"]
+text = "100%"
+theme_overrides = { "font_sizes/font_size": 10, "colors/font_color": Color(0.5, 0.5, 0.5, 1) }
+custom_minimum_size = Vector2(36, 0)
+
+[node name="InfectionRow" type="HBoxContainer" parent="Bars"]
+custom_minimum_size = Vector2(0, 18)
+
+[node name="InfectionIcon" type="Label" parent="Bars/InfectionRow"]
+text = "I"
+theme_overrides = { "font_sizes/font_size": 10, "colors/font_color": Color(0.4, 0.4, 0.4, 1) }
+custom_minimum_size = Vector2(16, 0)
+
+[node name="InfectionBar" type="ProgressBar" parent="Bars/InfectionRow"]
+custom_minimum_size = Vector2(160, 12)
+size_flags_horizontal = 3
+max_value = 100.0
+value = 100.0
+theme_overrides = { "styles/background": SubResource("bar_bg"), "styles/fill": SubResource("bar_infection_fill") }
+
+[node name="InfectionPct" type="Label" parent="Bars/InfectionRow"]
+text = "100%"
+theme_overrides = { "font_sizes/font_size": 10, "colors/font_color": Color(0.5, 0.5, 0.5, 1) }
+custom_minimum_size = Vector2(36, 0)
+
+[node name="MoraleRow" type="HBoxContainer" parent="Bars"]
+custom_minimum_size = Vector2(0, 18)
+
+[node name="MoraleIcon" type="Label" parent="Bars/MoraleRow"]
+text = "M"
+theme_overrides = { "font_sizes/font_size": 10, "colors/font_color": Color(0.4, 0.4, 0.4, 1) }
+custom_minimum_size = Vector2(16, 0)
+
+[node name="MoraleBar" type="ProgressBar" parent="Bars/MoraleRow"]
+custom_minimum_size = Vector2(160, 12)
+size_flags_horizontal = 3
+max_value = 100.0
+value = 100.0
+theme_overrides = { "styles/background": SubResource("bar_bg"), "styles/fill": SubResource("bar_morale_fill") }
+
+[node name="MoralePct" type="Label" parent="Bars/MoraleRow"]
+text = "100%"
+theme_overrides = { "font_sizes/font_size": 10, "colors/font_color": Color(0.5, 0.5, 0.5, 1) }
+custom_minimum_size = Vector2(36, 0)
+
+[node name="QuickSlots" type="HBoxContainer" parent="."]
+anchor_bottom = 1.0
+offset_left = 300.0
+offset_bottom = -8.0
+alignment = 1
+
+[node name="Slot0" type="Panel" parent="QuickSlots"]
+custom_minimum_size = Vector2(48, 48)
+theme_overrides = { "styles/panel": SubResource("bg_style") }
+
+[node name="Slot0Icon" type="TextureRect" parent="QuickSlots/Slot0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch_mode = 5
+
+[node name="Slot0Label" type="Label" parent="QuickSlots/Slot0"]
+anchor_bottom = 1.0
+offset_bottom = -2.0
+anchor_right = 1.0
+offset_right = -2.0
+text = ""
+theme_overrides = { "font_sizes/font_size": 8, "colors/font_color": Color(1, 1, 1, 1) }
+
+[node name="Slot1" type="Panel" parent="QuickSlots"]
+custom_minimum_size = Vector2(48, 48)
+theme_overrides = { "styles/panel": SubResource("bg_style") }
+
+[node name="Slot1Icon" type="TextureRect" parent="QuickSlots/Slot1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch_mode = 5
+
+[node name="Slot1Label" type="Label" parent="QuickSlots/Slot1"]
+anchor_bottom = 1.0
+offset_bottom = -2.0
+anchor_right = 1.0
+offset_right = -2.0
+text = ""
+theme_overrides = { "font_sizes/font_size": 8, "colors/font_color": Color(1, 1, 1, 1) }
+
+[node name="Slot2" type="Panel" parent="QuickSlots"]
+custom_minimum_size = Vector2(48, 48)
+theme_overrides = { "styles/panel": SubResource("bg_style") }
+
+[node name="Slot2Icon" type="TextureRect" parent="QuickSlots/Slot2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch_mode = 5
+
+[node name="Slot2Label" type="Label" parent="QuickSlots/Slot2"]
+anchor_bottom = 1.0
+offset_bottom = -2.0
+anchor_right = 1.0
+offset_right = -2.0
+text = ""
+theme_overrides = { "font_sizes/font_size": 8, "colors/font_color": Color(1, 1, 1, 1) }
+
+[node name="Slot3" type="Panel" parent="QuickSlots"]
+custom_minimum_size = Vector2(48, 48)
+theme_overrides = { "styles/panel": SubResource("bg_style") }
+
+[node name="Slot3Icon" type="TextureRect" parent="QuickSlots/Slot3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch_mode = 5
+
+[node name="Slot3Label" type="Label" parent="QuickSlots/Slot3"]
+anchor_bottom = 1.0
+offset_bottom = -2.0
+anchor_right = 1.0
+offset_right = -2.0
+text = ""
+theme_overrides = { "font_sizes/font_size": 8, "colors/font_color": Color(1, 1, 1, 1) }
+
+[node name="Slot4" type="Panel" parent="QuickSlots"]
+custom_minimum_size = Vector2(48, 48)
+theme_overrides = { "styles/panel": SubResource("bg_style") }
+
+[node name="Slot4Icon" type="TextureRect" parent="QuickSlots/Slot4"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch_mode = 5
+
+[node name="Slot4Label" type="Label" parent="QuickSlots/Slot4"]
+anchor_bottom = 1.0
+offset_bottom = -2.0
+anchor_right = 1.0
+offset_right = -2.0
+text = ""
+theme_overrides = { "font_sizes/font_size": 8, "colors/font_color": Color(1, 1, 1, 1) }
+
+[node name="Slot5" type="Panel" parent="QuickSlots"]
+custom_minimum_size = Vector2(48, 48)
+theme_overrides = { "styles/panel": SubResource("bg_style") }
+
+[node name="Slot5Icon" type="TextureRect" parent="QuickSlots/Slot5"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch_mode = 5
+
+[node name="Slot5Label" type="Label" parent="QuickSlots/Slot5"]
+anchor_bottom = 1.0
+offset_bottom = -2.0
+anchor_right = 1.0
+offset_right = -2.0
+text = ""
+theme_overrides = { "font_sizes/font_size": 8, "colors/font_color": Color(1, 1, 1, 1) }
+
+[node name="Slot6" type="Panel" parent="QuickSlots"]
+custom_minimum_size = Vector2(48, 48)
+theme_overrides = { "styles/panel": SubResource("bg_style") }
+
+[node name="Slot6Icon" type="TextureRect" parent="QuickSlots/Slot6"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch_mode = 5
+
+[node name="Slot6Label" type="Label" parent="QuickSlots/Slot6"]
+anchor_bottom = 1.0
+offset_bottom = -2.0
+anchor_right = 1.0
+offset_right = -2.0
+text = ""
+theme_overrides = { "font_sizes/font_size": 8, "colors/font_color": Color(1, 1, 1, 1) }
+
+[node name="Crosshair" type="TextureRect" parent="."]
+anchor_top = 0.5
+anchor_left = 0.5
+offset_left = -8.0
+offset_top = -8.0
+custom_minimum_size = Vector2(16, 16)
+expand = true
+stretch_mode = 5
+texture = null
+
+[node name="InteractionPrompt" type="Label" parent="."]
+anchor_top = 0.5
+anchor_left = 0.5
+offset_top = 40.0
+offset_left = -200.0
+custom_minimum_size = Vector2(400, 24)
+horizontal_alignment = 1
+theme_overrides = { "font_sizes/font_size": 14, "colors/font_color": Color(0.88, 0.88, 0.88, 1) }
+text = ""
+
+[node name="NotificationStack" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+offset_right = -12.0
+offset_top = 8.0
+alignment = 2

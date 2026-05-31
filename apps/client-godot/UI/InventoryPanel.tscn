@@ -1,0 +1,305 @@
+[gd_scene load_steps=4 format=3 uid="uid://bqkpj0o6tlrmp"]
+
+[sub_resource type="StyleBoxFlat" id="panel_bg"]
+bg_color = Color(0.1, 0.1, 0.12, 0.92)
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="slot_bg"]
+bg_color = Color(0.14, 0.14, 0.17, 1)
+corner_radius_bottom_left = 3
+corner_radius_bottom_right = 3
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+
+[sub_resource type="StyleBoxFlat" id="slot_hover"]
+bg_color = Color(0.2, 0.2, 0.25, 1)
+corner_radius_bottom_left = 3
+corner_radius_bottom_right = 3
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.4, 0.5, 1)
+
+[node name="InventoryPanel" type="Panel" parent="."]
+visible = false
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -300.0
+offset_right = 400.0
+offset_bottom = 300.0
+theme_overrides = { "styles/panel": SubResource("panel_bg") }
+
+[node name="TitleBar" type="HBoxContainer" parent="."]
+offset_left = 12.0
+offset_top = 8.0
+offset_right = -12.0
+custom_minimum_size = Vector2(0, 28)
+
+[node name="TitleLabel" type="Label" parent="TitleBar"]
+text = "INVENTORY"
+theme_overrides = { "font_sizes/font_size": 16, "colors/font_color": Color(0.88, 0.88, 0.88, 1) }
+
+[node name="WeightLabel" type="Label" parent="TitleBar"]
+offset_left = 20.0
+text = "0.0 / 40.0 kg"
+theme_overrides = { "font_sizes/font_size": 12, "colors/font_color": Color(0.5, 0.5, 0.5, 1) }
+
+[node name="CloseButton" type="Button" parent="TitleBar"]
+offset_left = 20.0
+text = "X"
+theme_overrides = { "font_sizes/font_size": 14, "colors/font_color": Color(0.8, 0.3, 0.3, 1) }
+
+[node name="SearchBar" type="LineEdit" parent="."]
+offset_left = 12.0
+offset_top = 40.0
+custom_minimum_size = Vector2(160, 24)
+placeholder_text = "Search items..."
+
+[node name="CategoryFilter" type="HBoxContainer" parent="."]
+offset_left = 12.0
+offset_top = 68.0
+
+[node name="FilterAll" type="Button" parent="CategoryFilter"]
+text = "All"
+flat = true
+theme_overrides = { "font_sizes/font_size": 11, "colors/font_color": Color(0.6, 0.7, 0.8, 1) }
+
+[node name="FilterWeapons" type="Button" parent="CategoryFilter"]
+text = "Weapons"
+flat = true
+theme_overrides = { "font_sizes/font_size": 11, "colors/font_color": Color(0.5, 0.5, 0.5, 1) }
+
+[node name="FilterConsumables" type="Button" parent="CategoryFilter"]
+text = "Consumables"
+flat = true
+theme_overrides = { "font_sizes/font_size": 11, "colors/font_color": Color(0.5, 0.5, 0.5, 1) }
+
+[node name="FilterMaterials" type="Button" parent="CategoryFilter"]
+text = "Materials"
+flat = true
+theme_overrides = { "font_sizes/font_size": 11, "colors/font_color": Color(0.5, 0.5, 0.5, 1) }
+
+[node name="FilterMedical" type="Button" parent="CategoryFilter"]
+text = "Medical"
+flat = true
+theme_overrides = { "font_sizes/font_size": 11, "colors/font_color": Color(0.5, 0.5, 0.5, 1) }
+
+[node name="SortButton" type="Button" parent="."]
+offset_right = 12.0
+offset_top = 40.0
+anchor_right = 1.0
+text = "Sort"
+theme_overrides = { "font_sizes/font_size": 11, "colors/font_color": Color(0.6, 0.6, 0.6, 1) }
+
+[node name="GridScroll" type="ScrollContainer" parent="."]
+offset_left = 12.0
+offset_top = 96.0
+offset_right = -270.0
+offset_bottom = -12.0
+
+[node name="GridContainer" type="GridContainer" parent="GridScroll"]
+columns = 8
+custom_minimum_size = Vector2(520, 200)
+
+[node name="Slot0" type="Panel" parent="GridScroll/GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+theme_overrides = { "styles/panel": SubResource("slot_bg") }
+
+[node name="Slot0Icon" type="TextureRect" parent="GridScroll/GridContainer/Slot0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch_mode = 5
+
+[node name="Slot0Qty" type="Label" parent="GridScroll/GridContainer/Slot0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -3.0
+offset_bottom = -3.0
+text = ""
+theme_overrides = { "font_sizes/font_size": 9, "colors/font_color": Color(1, 1, 1, 1) }
+
+[node name="Slot1" type="Panel" parent="GridScroll/GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+theme_overrides = { "styles/panel": SubResource("slot_bg") }
+
+[node name="Slot1Icon" type="TextureRect" parent="GridScroll/GridContainer/Slot1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch_mode = 5
+
+[node name="Slot1Qty" type="Label" parent="GridScroll/GridContainer/Slot1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -3.0
+offset_bottom = -3.0
+text = ""
+theme_overrides = { "font_sizes/font_size": 9, "colors/font_color": Color(1, 1, 1, 1) }
+
+[node name="Slot2" type="Panel" parent="GridScroll/GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+theme_overrides = { "styles/panel": SubResource("slot_bg") }
+
+[node name="Slot2Icon" type="TextureRect" parent="GridScroll/GridContainer/Slot2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch_mode = 5
+
+[node name="Slot2Qty" type="Label" parent="GridScroll/GridContainer/Slot2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -3.0
+offset_bottom = -3.0
+text = ""
+theme_overrides = { "font_sizes/font_size": 9, "colors/font_color": Color(1, 1, 1, 1) }
+
+[node name="Slot3" type="Panel" parent="GridScroll/GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+theme_overrides = { "styles/panel": SubResource("slot_bg") }
+
+[node name="Slot3Icon" type="TextureRect" parent="GridScroll/GridContainer/Slot3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch_mode = 5
+
+[node name="Slot3Qty" type="Label" parent="GridScroll/GridContainer/Slot3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -3.0
+offset_bottom = -3.0
+text = ""
+theme_overrides = { "font_sizes/font_size": 9, "colors/font_color": Color(1, 1, 1, 1) }
+
+[node name="Slot4" type="Panel" parent="GridScroll/GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+theme_overrides = { "styles/panel": SubResource("slot_bg") }
+
+[node name="Slot4Icon" type="TextureRect" parent="GridScroll/GridContainer/Slot4"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch_mode = 5
+
+[node name="Slot4Qty" type="Label" parent="GridScroll/GridContainer/Slot4"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -3.0
+offset_bottom = -3.0
+text = ""
+theme_overrides = { "font_sizes/font_size": 9, "colors/font_color": Color(1, 1, 1, 1) }
+
+[node name="Slot5" type="Panel" parent="GridScroll/GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+theme_overrides = { "styles/panel": SubResource("slot_bg") }
+
+[node name="Slot5Icon" type="TextureRect" parent="GridScroll/GridContainer/Slot5"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch_mode = 5
+
+[node name="Slot5Qty" type="Label" parent="GridScroll/GridContainer/Slot5"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -3.0
+offset_bottom = -3.0
+text = ""
+theme_overrides = { "font_sizes/font_size": 9, "colors/font_color": Color(1, 1, 1, 1) }
+
+[node name="ItemDetail" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+offset_right = -12.0
+offset_top = 96.0
+offset_bottom = -12.0
+anchor_left = 1.0
+offset_left = -250.0
+
+[node name="DetailHeader" type="HBoxContainer" parent="ItemDetail"]
+
+[node name="DetailIcon" type="TextureRect" parent="ItemDetail/DetailHeader"]
+custom_minimum_size = Vector2(48, 48)
+stretch_mode = 5
+
+[node name="DetailName" type="Label" parent="ItemDetail/DetailHeader"]
+offset_left = 8.0
+text = "Select an item"
+theme_overrides = { "font_sizes/font_size": 14, "colors/font_color": Color(0.88, 0.88, 0.88, 1) }
+
+[node name="DetailDesc" type="Label" parent="ItemDetail"]
+offset_top = 4.0
+text = ""
+theme_overrides = { "font_sizes/font_size": 11, "colors/font_color": Color(0.6, 0.6, 0.6, 1) }
+autowrap_mode = 1
+custom_minimum_size = Vector2(230, 40)
+
+[node name="DetailStats" type="VBoxContainer" parent="ItemDetail"]
+offset_top = 4.0
+
+[node name="StatDamage" type="Label" parent="ItemDetail/DetailStats"]
+text = ""
+theme_overrides = { "font_sizes/font_size": 10, "colors/font_color": Color(0.5, 0.5, 0.5, 1) }
+
+[node name="StatWeight" type="Label" parent="ItemDetail/DetailStats"]
+text = ""
+theme_overrides = { "font_sizes/font_size": 10, "colors/font_color": Color(0.5, 0.5, 0.5, 1) }
+
+[node name="StatDurability" type="Label" parent="ItemDetail/DetailStats"]
+text = ""
+theme_overrides = { "font_sizes/font_size": 10, "colors/font_color": Color(0.5, 0.5, 0.5, 1) }
+
+[node name="ActionButtons" type="HBoxContainer" parent="ItemDetail"]
+offset_top = 8.0
+
+[node name="UseButton" type="Button" parent="ItemDetail/ActionButtons"]
+text = "Use"
+theme_overrides = { "font_sizes/font_size": 12, "colors/font_color": Color(0.6, 0.7, 0.8, 1) }
+disabled = true
+
+[node name="EquipButton" type="Button" parent="ItemDetail/ActionButtons"]
+text = "Equip"
+theme_overrides = { "font_sizes/font_size": 12, "colors/font_color": Color(0.6, 0.7, 0.8, 1) }
+disabled = true
+
+[node name="DropButton" type="Button" parent="ItemDetail/ActionButtons"]
+text = "Drop"
+theme_overrides = { "font_sizes/font_size": 12, "colors/font_color": Color(0.8, 0.5, 0.5, 1) }
+disabled = true
+
+[node name="EquipmentGrid" type="GridContainer" parent="ItemDetail"]
+offset_top = 8.0
+columns = 3
+custom_minimum_size = Vector2(0, 60)
+
+[node name="EquipHead" type="Panel" parent="ItemDetail/EquipmentGrid"]
+custom_minimum_size = Vector2(48, 48)
+theme_overrides = { "styles/panel": SubResource("slot_bg") }
+
+[node name="EquipHeadLabel" type="Label" parent="ItemDetail/EquipmentGrid/EquipHead"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "H"
+theme_overrides = { "font_sizes/font_size": 8, "colors/font_color": Color(0.4, 0.4, 0.4, 1) }
+
+[node name="EquipBody" type="Panel" parent="ItemDetail/EquipmentGrid"]
+custom_minimum_size = Vector2(48, 48)
+theme_overrides = { "styles/panel": SubResource("slot_bg") }
+
+[node name="EquipBodyLabel" type="Label" parent="ItemDetail/EquipmentGrid/EquipBody"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "B"
+theme_overrides = { "font_sizes/font_size": 8, "colors/font_color": Color(0.4, 0.4, 0.4, 1) }
+
+[node name="EquipHands" type="Panel" parent="ItemDetail/EquipmentGrid"]
+custom_minimum_size = Vector2(48, 48)
+theme_overrides = { "styles/panel": SubResource("slot_bg") }
+
+[node name="EquipHandsLabel" type="Label" parent="ItemDetail/EquipmentGrid/EquipHands"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "W"
+theme_overrides = { "font_sizes/font_size": 8, "colors/font_color": Color(0.4, 0.4, 0.4, 1) }

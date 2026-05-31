@@ -1,0 +1,154 @@
+[gd_scene load_steps=5 format=3 uid="uid://dkgqy3gdvrrye"]
+
+[sub_resource type="StyleBoxFlat" id="panel_bg"]
+bg_color = Color(0.1, 0.1, 0.12, 0.92)
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="slot_bg"]
+bg_color = Color(0.14, 0.14, 0.17, 1)
+corner_radius_bottom_left = 3
+corner_radius_bottom_right = 3
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+
+[sub_resource type="StyleBoxFlat" id="loot_hover"]
+bg_color = Color(0.2, 0.2, 0.25, 1)
+
+[node name="LootWindow" type="Panel" parent="."]
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -150.0
+offset_right = 200.0
+offset_bottom = 150.0
+theme_overrides = { "styles/panel": SubResource("panel_bg") }
+
+[node name="TitleBar" type="HBoxContainer" parent="."]
+offset_left = 12.0
+offset_top = 8.0
+offset_right = -12.0
+custom_minimum_size = Vector2(0, 24)
+
+[node name="ContainerName" type="Label" parent="TitleBar"]
+text = "Container"
+theme_overrides = { "font_sizes/font_size": 14, "colors/font_color": Color(0.88, 0.88, 0.88, 1) }
+
+[node name="CloseBtn" type="Button" parent="TitleBar"]
+offset_left = 10.0
+text = "X"
+theme_overrides = { "font_sizes/font_size": 12, "colors/font_color": Color(0.8, 0.3, 0.3, 1) }
+
+[node name="GridScroll" type="ScrollContainer" parent="."]
+offset_left = 12.0
+offset_top = 36.0
+offset_right = -12.0
+offset_bottom = -44.0
+
+[node name="ItemGrid" type="GridContainer" parent="GridScroll"]
+columns = 5
+
+[node name="Slot0" type="Panel" parent="GridScroll/ItemGrid"]
+custom_minimum_size = Vector2(52, 52)
+theme_overrides = { "styles/panel": SubResource("slot_bg") }
+
+[node name="Slot0Icon" type="TextureRect" parent="GridScroll/ItemGrid/Slot0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch_mode = 5
+
+[node name="Slot0Qty" type="Label" parent="GridScroll/ItemGrid/Slot0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -3.0
+offset_bottom = -3.0
+text = ""
+theme_overrides = { "font_sizes/font_size": 9, "colors/font_color": Color(1, 1, 1, 1) }
+
+[node name="Slot1" type="Panel" parent="GridScroll/ItemGrid"]
+custom_minimum_size = Vector2(52, 52)
+theme_overrides = { "styles/panel": SubResource("slot_bg") }
+
+[node name="Slot1Icon" type="TextureRect" parent="GridScroll/ItemGrid/Slot1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch_mode = 5
+
+[node name="Slot1Qty" type="Label" parent="GridScroll/ItemGrid/Slot1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -3.0
+offset_bottom = -3.0
+text = ""
+theme_overrides = { "font_sizes/font_size": 9, "colors/font_color": Color(1, 1, 1, 1) }
+
+[node name="Slot2" type="Panel" parent="GridScroll/ItemGrid"]
+custom_minimum_size = Vector2(52, 52)
+theme_overrides = { "styles/panel": SubResource("slot_bg") }
+
+[node name="Slot2Icon" type="TextureRect" parent="GridScroll/ItemGrid/Slot2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch_mode = 5
+
+[node name="Slot2Qty" type="Label" parent="GridScroll/ItemGrid/Slot2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -3.0
+offset_bottom = -3.0
+text = ""
+theme_overrides = { "font_sizes/font_size": 9, "colors/font_color": Color(1, 1, 1, 1) }
+
+[node name="Slot3" type="Panel" parent="GridScroll/ItemGrid"]
+custom_minimum_size = Vector2(52, 52)
+theme_overrides = { "styles/panel": SubResource("slot_bg") }
+
+[node name="Slot3Icon" type="TextureRect" parent="GridScroll/ItemGrid/Slot3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch_mode = 5
+
+[node name="Slot3Qty" type="Label" parent="GridScroll/ItemGrid/Slot3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -3.0
+offset_bottom = -3.0
+text = ""
+theme_overrides = { "font_sizes/font_size": 9, "colors/font_color": Color(1, 1, 1, 1) }
+
+[node name="Slot4" type="Panel" parent="GridScroll/ItemGrid"]
+custom_minimum_size = Vector2(52, 52)
+theme_overrides = { "styles/panel": SubResource("slot_bg") }
+
+[node name="Slot4Icon" type="TextureRect" parent="GridScroll/ItemGrid/Slot4"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch_mode = 5
+
+[node name="Slot4Qty" type="Label" parent="GridScroll/ItemGrid/Slot4"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -3.0
+offset_bottom = -3.0
+text = ""
+theme_overrides = { "font_sizes/font_size": 9, "colors/font_color": Color(1, 1, 1, 1) }
+
+[node name="ButtonBar" type="HBoxContainer" parent="."]
+anchor_bottom = 1.0
+offset_bottom = -8.0
+offset_left = 12.0
+offset_right = -12.0
+
+[node name="TakeBtn" type="Button" parent="ButtonBar"]
+text = "Take"
+theme_overrides = { "font_sizes/font_size": 12, "colors/font_color": Color(0.5, 0.7, 0.5, 1) }
+
+[node name="TakeAllBtn" type="Button" parent="ButtonBar"]
+text = "Take All"
+theme_overrides = { "font_sizes/font_size": 12, "colors/font_color": Color(0.6, 0.7, 0.8, 1) }
+
+[node name="StoreBtn" type="Button" parent="ButtonBar"]
+text = "Store"
+theme_overrides = { "font_sizes/font_size": 12, "colors/font_color": Color(0.6, 0.6, 0.6, 1) }

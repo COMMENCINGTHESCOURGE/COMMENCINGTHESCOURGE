@@ -1,0 +1,26 @@
+; Engine configuration for vinc-engine
+
+[application]
+config/name="Necroworld: Ashes of Tomorrow"
+config/description="A constraint-first open-world zombie survival game."
+run/main_scene="res://Scenes/Main.tscn"
+config/icon="res://icon.png"
+
+[rendering]
+renderer/rendering_method="forward_plus"
+renderer/anti_aliasing/quality="high"
+
+[physics]
+common/enable_pause_aware_picking=true
+
+[input]
+ui_left={ "deadzone": 0.5, "events": [ { "type": "InputEventKey", "scancode": 65 }, { "type": "InputEventKey", "scancode": 4194319 } ] }
+ui_right={ "deadzone": 0.5, "events": [ { "type": "InputEventKey", "scancode": 68 }, { "type": "InputEventKey", "scancode": 4194321 } ] }
+ui_up={ "deadzone": 0.5, "events": [ { "type": "InputEventKey", "scancode": 87 }, { "type": "InputEventKey", "scancode": 4194320 } ] }
+ui_down={ "deadzone": 0.5, "events": [ { "type": "InputEventKey", "scancode": 83 }, { "type": "InputEventKey", "scancode": 4194322 } ] }
+ui_accept={ "deadzone": 0.5, "events": [ { "type": "InputEventKey", "scancode": 32 } ] }
+ui_interact={ "deadzone": 0.5, "events": [ { "type": "InputEventKey", "scancode": 69 } ] }
+ui_talk={ "deadzone": 0.5, "events": [ { "type": "InputEventKey", "scancode": 70 } ] }
+ui_inventory={ "deadzone": 0.5, "events": [ { "type": "InputEventKey", "scancode": 73 }, { "type": "InputEventKey", "scancode": 4194313 } ] }
+ui_crafting={ "deadzone": 0.5, "events": [ { "type": "InputEventKey", "scancode": 67 } ] }
+ui_build={ "deadzone": 0.5, "events": [ { "type": "InputEventKey", "scancode": 66 } ] }

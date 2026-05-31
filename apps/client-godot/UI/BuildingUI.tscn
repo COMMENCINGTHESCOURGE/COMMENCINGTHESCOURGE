@@ -1,0 +1,102 @@
+[gd_scene load_steps=3 format=3 uid="uid://boe3qexd4mptl"]
+
+[sub_resource type="StyleBoxFlat" id="btn_active"]
+bg_color = Color(0.3, 0.5, 0.6, 1)
+corner_radius_bottom_left = 4
+corner_radius_bottom_right = 4
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+
+[sub_resource type="StyleBoxFlat" id="btn_inactive"]
+bg_color = Color(0.12, 0.12, 0.15, 0.85)
+corner_radius_bottom_left = 4
+corner_radius_bottom_right = 4
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+
+[node name="BuildingUI" type="Control" parent="."]
+visible = false
+
+[node name="PiecePalette" type="HBoxContainer" parent="."]
+anchor_bottom = 1.0
+offset_left = 200.0
+offset_bottom = -60.0
+alignment = 1
+
+[node name="FoundationBtn" type="Button" parent="PiecePalette"]
+text = "Foundation"
+theme_overrides = { "styles/normal": SubResource("btn_active"), "styles/hover": SubResource("btn_active"), "font_sizes/font_size": 11, "colors/font_color": Color(0.88, 0.88, 0.88, 1) }
+custom_minimum_size = Vector2(80, 32)
+
+[node name="WallBtn" type="Button" parent="PiecePalette"]
+text = "Wall"
+theme_overrides = { "styles/normal": SubResource("btn_inactive"), "styles/hover": SubResource("btn_inactive"), "font_sizes/font_size": 11, "colors/font_color": Color(0.7, 0.7, 0.7, 1) }
+custom_minimum_size = Vector2(60, 32)
+
+[node name="FloorBtn" type="Button" parent="PiecePalette"]
+text = "Floor"
+theme_overrides = { "styles/normal": SubResource("btn_inactive"), "styles/hover": SubResource("btn_inactive"), "font_sizes/font_size": 11, "colors/font_color": Color(0.7, 0.7, 0.7, 1) }
+custom_minimum_size = Vector2(60, 32)
+
+[node name="DoorBtn" type="Button" parent="PiecePalette"]
+text = "Door"
+theme_overrides = { "styles/normal": SubResource("btn_inactive"), "styles/hover": SubResource("btn_inactive"), "font_sizes/font_size": 11, "colors/font_color": Color(0.7, 0.7, 0.7, 1) }
+custom_minimum_size = Vector2(60, 32)
+
+[node name="WindowBtn" type="Button" parent="PiecePalette"]
+text = "Window"
+theme_overrides = { "styles/normal": SubResource("btn_inactive"), "styles/hover": SubResource("btn_inactive"), "font_sizes/font_size": 11, "colors/font_color": Color(0.7, 0.7, 0.7, 1) }
+custom_minimum_size = Vector2(60, 32)
+
+[node name="StairsBtn" type="Button" parent="PiecePalette"]
+text = "Stairs"
+theme_overrides = { "styles/normal": SubResource("btn_inactive"), "styles/hover": SubResource("btn_inactive"), "font_sizes/font_size": 11, "colors/font_color": Color(0.7, 0.7, 0.7, 1) }
+custom_minimum_size = Vector2(60, 32)
+
+[node name="RoofBtn" type="Button" parent="PiecePalette"]
+text = "Roof"
+theme_overrides = { "styles/normal": SubResource("btn_inactive"), "styles/hover": SubResource("btn_inactive"), "font_sizes/font_size": 11, "colors/font_color": Color(0.7, 0.7, 0.7, 1) }
+custom_minimum_size = Vector2(60, 32)
+
+[node name="PillarBtn" type="Button" parent="PiecePalette"]
+text = "Pillar"
+theme_overrides = { "styles/normal": SubResource("btn_inactive"), "styles/hover": SubResource("btn_inactive"), "font_sizes/font_size": 11, "colors/font_color": Color(0.7, 0.7, 0.7, 1) }
+custom_minimum_size = Vector2(60, 32)
+
+[node name="InfoBar" type="HBoxContainer" parent="."]
+anchor_bottom = 1.0
+offset_left = 200.0
+offset_bottom = -96.0
+alignment = 1
+
+[node name="MaterialLabel" type="Label" parent="InfoBar"]
+text = "Wood x5, Nails x10"
+theme_overrides = { "font_sizes/font_size": 10, "colors/font_color": Color(0.5, 0.5, 0.5, 1) }
+
+[node name="CostLabel" type="Label" parent="InfoBar"]
+offset_left = 12.0
+theme_overrides = { "font_sizes/font_size": 10, "colors/font_color": Color(0.6, 0.6, 0.2, 1) }
+
+[node name="Actions" type="HBoxContainer" parent="."]
+anchor_bottom = 1.0
+offset_right = -200.0
+offset_bottom = -60.0
+anchor_right = 1.0
+alignment = 2
+
+[node name="RotateBtn" type="Button" parent="Actions"]
+text = "Rotate [R]"
+theme_overrides = { "font_sizes/font_size": 11, "colors/font_color": Color(0.6, 0.7, 0.8, 1) }
+custom_minimum_size = Vector2(90, 32)
+
+[node name="RemoveBtn" type="Button" parent="Actions"]
+text = "Remove"
+theme_overrides = { "font_sizes/font_size": 11, "colors/font_color": Color(0.7, 0.5, 0.5, 1) }
+custom_minimum_size = Vector2(80, 32)
+toggle_mode = true
+
+[node name="SnapCheck" type="CheckBox" parent="Actions"]
+text = "Snap"
+flat = true
+button_pressed = true
+theme_overrides = { "font_sizes/font_size": 11, "colors/font_color": Color(0.5, 0.5, 0.5, 1) }
