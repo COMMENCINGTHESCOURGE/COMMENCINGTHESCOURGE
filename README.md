@@ -1,15 +1,16 @@
-### 🌍 Continuity Engine Developer
+### ── FIELD COMPUTATION ──
 
-I build **field computation systems**, not game engines.
+**¯MANIFOLD**. Not a game engine. A continuity engine.
 
-🔹 **Hyperpoly-Terrain II**: GPU-native, material-first terrain simulation  
-🔹 **MANIFOLD**: Open-world field computation framework  
-🔹 **Vinculum**: Metadata-aware operator scheduling  
-🔹 **Guinea Pig Trench LLC**: Applied continuity research  
+ρ : φ : ψ : ∇T : ∇M : C — six terms. delete one, the field collapses.
 
-*"Continuity is not a feature. It's the foundation."*
+---
 
-🔗 [hyperpoly-terrain docs](https://github.com/COMMENCINGTHESCOURGE/hyperpoly-terrain)  
-🔗 [Trench-Builder demo](https://github.com/COMMENCINGTHESCOURGE/trench-builder)  
-🔗 [Perspective Sieve (Vanishing Point Detector)](https://github.com/COMMENCINGTHESCOURGE/vanishing-point-detector)  
-🔗 [RFC: Native Backend Evaluation](https://github.com/COMMENCINGTHESCOURGE/hyperpoly-terrain/issues/12)
+**Aetherion-Continuum** — 200M field cells/frame. Zero host sync. Vinculum-encoded conservation.
+**Hyperpoly-Terrain II** — 6-channel material tensors. Cohesion-weighted QEF.
+**Trench-Builder** — Open-world construction. Foreman supervisor. Blender/OnShape bridges.
+**Erdos-Straus Solver** — Hot-corridor sieve. stride-24. 100% breach.
+
+---
+
+`¯` redefines. `/` discards.
