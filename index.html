@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Hyper‑Real Human Head | GLTF + PBR Textures + HDRI + Eyes</title>
+    <style>
+        body { margin: 0; overflow: hidden; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        #info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            backdrop-filter: blur(5px);
+            pointer-events: none;
+            z-index: 10;
+            font-size: 14px;
+            font-family: monospace;
+        }
+        #controls {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.6);
+            padding: 6px 12px;
+            border-radius: 6px;
+            color: #ccc;
+            font-size: 12px;
+            pointer-events: none;
+        }
+        .status {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.5);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            color: #0f0;
+            pointer-events: none;
+        }
+        #github-hud {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 300px;
+            max-height: 80vh;
+            background: rgba(10, 15, 20, 0.85);
+            border: 1px solid rgba(0, 255, 128, 0.4);
+            border-left: 3px solid #00ff80;
+            color: #e0e0e0;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: monospace;
+            overflow-y: auto;
+            backdrop-filter: blur(8px);
+            z-index: 20;
+            box-shadow: 0 0 20px rgba(0, 255, 128, 0.1);
+        }
+        #github-hud h3 {
+            color: #00ff80;
+            margin-top: 0;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(0, 255, 128, 0.2);
+            padding-bottom: 8px;
+        }
+        #github-hud .repo {
+            margin-bottom: 15px;
+        }
+        #github-hud .repo-name {
+            color: #fff;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        #github-hud .repo-desc {
+            font-size: 11px;
+            color: #aaa;
+            margin: 4px 0;
+        }
+        #github-hud .repo-stats {
+            font-size: 10px;
+            color: #00ff80;
+        }
+        #readme-content {
+            font-size: 11px;
+            line-height: 1.4;
+            color: #bbb;
+            white-space: pre-wrap;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="info">
+        🧬 REALISTIC HUMAN HEAD PIPELINE<br>
+        <span style="font-size:11px;">CC0 head model • PBR textures • HDRI lighting • separate eyes • blink animation</span>
+    </div>
+    <div id="controls">
+        🖱️ Drag to orbit | Scroll to zoom
+    </div>
+    <div class="status" id="status">loading assets...</div>
+
+    <div id="github-hud">
+        <h3>📡 MANIFOLD Telemetry</h3>
+        <div id="repo-list">Loading repository data...</div>
+        <div id="readme-content">Loading Continuity Manifesto...</div>
+    </div>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.128.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+        import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
+
+        // --- setup scene ---
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x111122);
+        scene.environment = null; // will set after HDRI loads
+
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.set(1.8, 1.2, 2.2);
+        camera.lookAt(0, 0.3, 0);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance" });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true;
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.2;
+        document.body.appendChild(renderer.domElement);
+
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.autoRotate = false;
+        controls.enableZoom = true;
+        controls.target.set(0, 0.3, 0);
+
+        // --- HDRI environment (high dynamic range sky) ---
+        const rgbeLoader = new RGBELoader();
+        rgbeLoader.load('https://threejs.org/examples/textures/equirectangular/venice_sunset_1k.hdr', (texture) => {
+            texture.mapping = THREE.EquirectangularMapping;
+            scene.environment = texture;
+            scene.background = texture;
+            scene.backgroundIntensity = 0.6;
+            document.getElementById('status').innerHTML = 'HDRI loaded ✓';
+        }, undefined, (err) => {
+            console.warn('HDRI fallback: using simple lighting', err);
+            document.getElementById('status').innerHTML = 'HDRI fallback, using lights';
+            // fallback lights
+            const ambient = new THREE.AmbientLight(0x443322, 0.6);
+            scene.add(ambient);
+            const keyLight = new THREE.DirectionalLight(0xffccaa, 1.2);
+            keyLight.position.set(1, 1.5, 1);
+            scene.add(keyLight);
+            const fillLight = new THREE.PointLight(0x88aaff, 0.5);
+            fillLight.position.set(-1, 0.8, -1);
+            scene.add(fillLight);
+        });
+
+        // --- load head model (CC0, from Three.js examples) ---
+        const loader = new GLTFLoader();
+        let headMesh = null;
+        let eyeL, eyeR, eyelidL, eyelidR;
+        let blinkMorph = null;
+
+        // We'll use a known CC0 head model (LeePerrySmith) with textures
+        // The model path from Three.js examples (public domain)
+        const modelUrl = 'https://threejs.org/examples/models/gltf/LeePerrySmith/LeePerrySmith.glb';
+        const textureBase = 'https://threejs.org/examples/models/gltf/LeePerrySmith/';
+
+        loader.load(modelUrl, (gltf) => {
+            const model = gltf.scene;
+            model.traverse((child) => {
+                if (child.isMesh) {
+                    // Assign high-quality PBR materials (using provided textures)
+                    if (child.name === 'LeePerrySmith') {
+                        headMesh = child;
+                        // Load and assign maps
+                        const textureLoader = new THREE.TextureLoader();
+                        const albedo = textureLoader.load(textureBase + 'Map_Albedo.jpg');
+                        const normal = textureLoader.load(textureBase + 'Map_Normal.jpg');
+                        const roughness = textureLoader.load(textureBase + 'Map_Roughness.jpg');
+                        const ao = textureLoader.load(textureBase + 'Map_AO.jpg');
+                        
+                        child.material = new THREE.MeshStandardMaterial({
+                            map: albedo,
+                            normalMap: normal,
+                            roughnessMap: roughness,
+                            roughness: 0.45,
+                            metalness: 0.02,
+                            aoMap: ao,
+                            aoMapIntensity: 1.0
+                        });
+                        child.castShadow = true;
+                        child.receiveShadow = true;
+                    }
+                }
+            });
+            scene.add(model);
+            
+            // add separate eyes (spheres) on top of the model's eye sockets
+            // approximate eye positions (model specific)
+            const eyeGeometry = new THREE.SphereGeometry(0.034, 64, 64);
+            const eyeMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.2, metalness: 0.9 });
+            eyeL = new THREE.Mesh(eyeGeometry, eyeMaterial);
+            eyeR = new THREE.Mesh(eyeGeometry, eyeMaterial);
+            eyeL.position.set(-0.071, 0.135, 0.119);
+            eyeR.position.set(0.071, 0.135, 0.119);
+            scene.add(eyeL, eyeR);
+            
+            // corneas (transparent to simulate refraction)
+            const corneaGeo = new THREE.SphereGeometry(0.038, 64, 64);
+            const corneaMat = new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.1, metalness: 0.95, transparent: true, opacity: 0.4 });
+            const corneaL = new THREE.Mesh(corneaGeo, corneaMat);
+            const corneaR = new THREE.Mesh(corneaGeo, corneaMat);
+            corneaL.position.set(-0.071, 0.135, 0.143);
+            corneaR.position.set(0.071, 0.135, 0.143);
+            scene.add(corneaL, corneaR);
+            
+            // iris + pupil inside (simplified)
+            const irisGeo = new THREE.SphereGeometry(0.022, 48, 48);
+            const irisMat = new THREE.MeshStandardMaterial({ color: 0x5a3e2a, roughness: 0.05 });
+            const irisL = new THREE.Mesh(irisGeo, irisMat);
+            const irisR = new THREE.Mesh(irisGeo, irisMat);
+            irisL.position.set(-0.071, 0.135, 0.155);
+            irisR.position.set(0.071, 0.135, 0.155);
+            scene.add(irisL, irisR);
+            
+            // blink animation using morph targets? This model has no built-in morphs, so we simulate blink by scaling eyes? Not ideal.
+            // Instead, we add simple eyelid meshes that animate.
+            const lidGeo = new THREE.BoxGeometry(0.09, 0.025, 0.04);
+            const lidMat = new THREE.MeshStandardMaterial({ color: 0xccaa88, roughness: 0.3 });
+            eyelidL = new THREE.Mesh(lidGeo, lidMat);
+            eyelidR = new THREE.Mesh(lidGeo, lidMat);
+            eyelidL.position.set(-0.071, 0.152, 0.138);
+            eyelidR.position.set(0.071, 0.152, 0.138);
+            scene.add(eyelidL, eyelidR);
+            
+            // lower eyelids
+            const lowerLid = new THREE.Mesh(lidGeo, lidMat);
+            const lowerRid = new THREE.Mesh(lidGeo, lidMat);
+            lowerLid.position.set(-0.071, 0.118, 0.138);
+            lowerRid.position.set(0.071, 0.118, 0.138);
+            lowerLid.scale.set(1, 0.6, 1);
+            lowerRid.scale.set(1, 0.6, 1);
+            scene.add(lowerLid, lowerRid);
+            
+            document.getElementById('status').innerHTML = 'head + eyes loaded ✓';
+        }, undefined, (error) => {
+            console.error('GLTF load error', error);
+            document.getElementById('status').innerHTML = 'ERROR loading model, using fallback sphere';
+            // fallback simple head
+            const geo = new THREE.SphereGeometry(0.5, 64, 64);
+            const mat = new THREE.MeshStandardMaterial({ color: 0xffaa88, roughness: 0.4 });
+            headMesh = new THREE.Mesh(geo, mat);
+            headMesh.position.y = 0.3;
+            scene.add(headMesh);
+        });
+
+        // --- simple blink animation (toggle eyelid scale) ---
+        let blinkTimer = 0;
+        let isBlinking = false;
+        function updateBlink(deltaTime) {
+            if (!eyelidL) return;
+            blinkTimer += deltaTime;
+            if (!isBlinking && blinkTimer > 3.0) {
+                isBlinking = true;
+                blinkTimer = 0;
+            }
+            if (isBlinking) {
+                const progress = Math.min(1.0, blinkTimer / 0.12);
+                const scaleY = 1.0 - progress * 0.9;
+                eyelidL.scale.y = scaleY;
+                eyelidR.scale.y = scaleY;
+                if (progress >= 1.0) {
+                    isBlinking = false;
+                    blinkTimer = 0;
+                }
+            } else {
+                eyelidL.scale.y = 1.0;
+                eyelidR.scale.y = 1.0;
+            }
+        }
+
+        // --- additional light fill for realism ---
+        const backRim = new THREE.PointLight(0xffaa66, 0.5);
+        backRim.position.set(0, 0.4, -0.8);
+        scene.add(backRim);
+        const fillWarm = new THREE.PointLight(0xcc8866, 0.4);
+        fillWarm.position.set(0.6, -0.2, 0.5);
+        scene.add(fillWarm);
+
+        // --- simple ground reflection disc ---
+        const discMat = new THREE.MeshStandardMaterial({ color: 0x111122, metalness: 0.8, roughness: 0.3, transparent: true, opacity: 0.4 });
+        const disc = new THREE.Mesh(new THREE.CircleGeometry(1.2, 16), discMat);
+        disc.rotation.x = -Math.PI / 2;
+        disc.position.y = -0.45;
+        scene.add(disc);
+
+        // --- animation loop ---
+        let lastTime = performance.now();
+        function animate() {
+            const now = performance.now();
+            let dt = Math.min(0.033, (now - lastTime) / 1000);
+            lastTime = now;
+            
+            updateBlink(dt);
+            controls.update();
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+
+        window.addEventListener('resize', onWindowResize, false);
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        // small helper to show when textures are ready
+        setTimeout(() => {
+            document.getElementById('status').innerHTML = 'ready • HDRI + PBR + eyes + blink';
+        }, 3000);
+
+        // --- GitHub API Integration ---
+        async function fetchGitHubData() {
+            try {
+                // Fetch repos for COMMENCINGTHESCOURGE
+                const repoRes = await fetch('https://api.github.com/users/COMMENCINGTHESCOURGE/repos?sort=updated');
+                if (repoRes.ok) {
+                    const repos = await repoRes.json();
+                    let html = '';
+                    // Show top 3 most recently updated repos
+                    repos.slice(0, 3).forEach(repo => {
+                        html += `
+                            <div class="repo">
+                                <div class="repo-name">${repo.name}</div>
+                                <div class="repo-desc">${repo.description || 'Continuity construct.'}</div>
+                                <div class="repo-stats">⭐ ${repo.stargazers_count} | 🍴 ${repo.forks_count} | Updated: ${new Date(repo.updated_at).toLocaleDateString()}</div>
+                            </div>
+                        `;
+                    });
+                    document.getElementById('repo-list').innerHTML = html;
+                } else {
+                    document.getElementById('repo-list').innerHTML = 'Pipeline offline. Cannot fetch repos.';
+                }
+
+                // Fetch README from hyperpoly-terrain to show manifesto
+                const readmeRes = await fetch('https://raw.githubusercontent.com/COMMENCINGTHESCOURGE/hyperpoly-terrain/main/README.md');
+                if (readmeRes.ok) {
+                    const text = await readmeRes.text();
+                    // Extract the Manifesto section roughly
+                    const manifestoMatch = text.match(/## 🌍 The MANIFOLD Manifesto\n\n([\s\S]*?)(?=\n##|$)/);
+                    if (manifestoMatch && manifestoMatch[1]) {
+                        document.getElementById('readme-content').innerHTML = `<strong>THE MANIFESTO:</strong><br><br>${manifestoMatch[1].substring(0, 300)}...`;
+                    } else {
+                        document.getElementById('readme-content').innerHTML = `<strong>PHILOSOPHY:</strong><br>Continuity is not a feature. It's the foundation.`;
+                    }
+                } else {
+                    // Fallback to local profile README if running locally
+                    const localReadme = await fetch('./README.md');
+                    if (localReadme.ok) {
+                        const text = await localReadme.text();
+                        document.getElementById('readme-content').innerHTML = `<strong>LOCAL PROFILE DATA:</strong><br><br>${text.substring(0, 300)}...`;
+                    }
+                }
+            } catch (err) {
+                console.error('GitHub fetch failed:', err);
+                document.getElementById('repo-list').innerHTML = 'Telemetry failure.';
+            }
+        }
+        
+        // Init fetch
+        fetchGitHubData();
+
+    </script>
+</body>
+</html>
