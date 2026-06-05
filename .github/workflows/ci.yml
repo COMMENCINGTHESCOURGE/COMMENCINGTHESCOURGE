@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+env:
+  # Opt into Node 24 now and suppress the deprecation nag
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  # If a workflow ever needs to temporarily allow Node 20, uncomment:
+  # ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.8", "3.9"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install Node deps
+        run: npm ci || npm install
+
+      - name: Typecheck
+        run: npx tsc --noEmit
+
+      - name: Test
+        run: npx vitest run --reporter=verbose
+
+      - name: Build (web apps if present)
+        run: |
+          if [ -f apps/web/package.json ]; then
+            cd apps/web && npm run build
+          elif [ -f package.json ]; then
+            npm run build || true
+          else
+            echo "No build step detected"
+          fi

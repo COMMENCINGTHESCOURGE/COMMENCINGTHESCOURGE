@@ -1,0 +1,39 @@
+name: Scenario Compose
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+    inputs:
+      scenario:
+        description: 'Scenario identifier or absolute path'
+        required: false
+        default: ''
+
+jobs:
+  scenario-compose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Compose scenario
+        env:
+          SCENARIO: ${{ inputs.scenario || '' }}
+        run: |
+          npm ci --prefix products/scenario-composer
+          if [ -n "$SCENARIO" ]; then
+            node products/scenario-composer/src/index.js --scenario "$SCENARIO" --all-targets
+          else
+            node products/scenario-composer/src/index.js --all-targets --dry-run
+          fi

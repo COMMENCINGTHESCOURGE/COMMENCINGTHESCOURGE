@@ -1,0 +1,12 @@
+{
+  "name": "scenario-composer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": { "scenario-composer": "./src/index.js" },
+  "scripts": {
+    "compose": "node src/index.js",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": { "node": ">=18" }
+}

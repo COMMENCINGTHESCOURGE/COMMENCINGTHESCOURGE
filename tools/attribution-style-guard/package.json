@@ -1,0 +1,16 @@
+{
+  "name": "attribution-style-guard",
+  "version": "0.1.0",
+  "description": "Fail builds when documentation/code uses colonial discovery framing.",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "attribution-guard": "./src/index.js"
+  },
+  "scripts": {
+    "scan": "node src/index.js",
+    "scan:all": "node src/index.js --roots .",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": { "node": ">=18" }
+}

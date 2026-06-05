@@ -1,0 +1,45 @@
+name: Attribution Style Guard
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  attribution-lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install guard
+        run: npm ci --prefix products/attribution-style-guard
+
+      - name: Run attribution style guard
+        env:
+          ATTRIBUTION_GUARD: on
+        run: |
+          npm run --silent scan --prefix products/attribution-style-guard \
+            --roots products/attribution-style-guard \
+            --roots . \
+            --fail-on-find \
+            --glob '**/*.md' \
+            --glob '**/*.yml' \
+            --glob '**/*.yaml' \
+            --glob '**/*.json' \
+            --glob '**/*.ts' \
+            --glob '**/*.tsx' \
+            --glob '**/*.js' \
+            --glob '**/*.jsx' \
+            --exclude '**/node_modules/**' \
+            --exclude '**/dist/**' \
+            --exclude '**/coverage/**'
