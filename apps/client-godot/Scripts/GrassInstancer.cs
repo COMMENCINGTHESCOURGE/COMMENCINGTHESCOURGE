@@ -6,6 +6,8 @@ using Godot;
 /// </summary>
 public partial class GrassInstancer : MultiMeshInstance3D
 {
+    public static GrassInstancer Instance { get; private set; }
+
     [Export] public int GrassCount = 10000;
     [Export] public float SpawnRadius = 105.0f; // 15 to 105 to match the radius math in Filament (15 + 90)
 
@@ -20,6 +22,8 @@ public partial class GrassInstancer : MultiMeshInstance3D
 
     public override void _Ready()
     {
+        Instance = this;
+
         // Ensure we have a MultiMesh
         if (Multimesh == null)
         {
@@ -206,5 +210,58 @@ public partial class GrassInstancer : MultiMeshInstance3D
 
         arrMesh.AddSurfaceFromArrays(Mesh.PrimitiveType.Triangles, arrays);
         return arrMesh;
+    }
+
+    // Phase 31: The Gathering Axiom (Checkpoint 1)
+    public Vector3? GetNearestVegetation(Vector3 pos, out int rawIndex)
+    {
+        rawIndex = -1;
+        if (_rawInstanceData == null) return null;
+
+        float closestDistSq = float.MaxValue;
+        Vector3? closestPos = null;
+
+        for (int i = 0; i < GrassCount; i++)
+        {
+            int offset = i * 16;
+            
+            // Check if it's already consumed (yield 0 -> materialIdx 255)
+            if (_rawInstanceData[offset + 15] >= 254.0f) continue;
+
+            // Extract world position from transform origin
+            Vector3 worldPos = new Vector3(
+                _rawInstanceData[offset + 12],
+                _rawInstanceData[offset + 13],
+                _rawInstanceData[offset + 14]
+            );
+
+            float distSq = pos.DistanceSquaredTo(worldPos);
+            if (distSq < closestDistSq)
+            {
+                closestDistSq = distSq;
+                closestPos = worldPos;
+                rawIndex = i;
+            }
+        }
+
+        return closestPos;
+    }
+
+    public void ConsumeVegetationAt(int rawIndex)
+    {
+        if (rawIndex >= 0 && rawIndex < GrassCount)
+        {
+            int offset = rawIndex * 16;
+            // Set material index to 255 (which corresponds to 0 yield in the tensor)
+            // This will cause the Compute Culler to automatically drop the instance.
+            _rawInstanceData[offset + 15] = 255.0f;
+            
+            // Re-upload the buffer to the GPU. For optimization, you would map/unmap or use a sub-buffer update.
+            // Since ComputeCuller manages the SSBO, we tell it to update.
+            if (_culler != null)
+            {
+                _culler.UpdateInputBuffer(_rawInstanceData);
+            }
+        }
     }
 }

@@ -24,14 +24,23 @@ public partial class NPC : Interactable
     private Vector3 _workAnchor;
     private Vector3 _currentAnchor;
 
+    // Phase 31 (Checkpoint 1): The Gathering Axiom
+    public enum NpcState { Idle, HuntingYield, Harvesting, Returning, HuntingRepair, Repairing }
+    private NpcState _currentState = NpcState.Idle;
+    private Vector3? _targetYieldPos;
+    private int _targetYieldIndex = -1;
+    private float _harvestTimer = 0.0f;
+
+    // Phase 32: Universal Asset Degradation
+    private AssetCondition _targetAsset;
+    private float _repairTimer = 0.0f;
+
     // Phase 22: The Hygiene Scourge
     private Vector3 _washAnchor;
     [Export] public float HygieneLevel = 100.0f;
     [Export] public float InfectionLevel = 0.0f;
     private bool _isScourge = false;
 
-    // Phase 21: Property Preservation
-    private PropertyIntegrity _repairTarget;
     // Phase 26: Hyper-Real Proxemics
     private HyperRealHead _headController;
 
@@ -142,33 +151,6 @@ public partial class NPC : Interactable
             PassivelyInfectOthers(dt);
         }
 
-        // Phase 21: Preservation Override
-        if (NpcRole == "builder")
-        {
-            if (_repairTarget == null || _repairTarget.Condition >= 100f)
-            {
-                HuntForRepairs();
-            }
-
-            if (_repairTarget != null)
-            {
-                if (GlobalPosition.DistanceTo(_repairTarget.GlobalPosition) > 2.0f)
-                {
-                    MoveTowards(_repairTarget.GlobalPosition, dt, WalkSpeed * 1.5f); // Run to fix it
-                }
-                else
-                {
-                    _repairTarget.Repair(15.0f * dt); // Repair over time
-                    if (_repairTarget.Condition >= 100f)
-                    {
-                        GD.Print($"NPC {NpcName} finished preserving the property at {_repairTarget.GlobalPosition}.");
-                        _repairTarget = null;
-                    }
-                }
-                return; // Skip normal schedule
-            }
-        }
-
         // Phase 23: Security Rig Mounting
         if (NpcRole == "security_pilot" || NpcRole == "security_operator")
         {
@@ -217,6 +199,15 @@ public partial class NPC : Interactable
         {
             DetermineCurrentAnchor();
             
+            if (NpcRole == "gatherer")
+            {
+                ProcessGathererState(dt);
+            }
+            else if (NpcRole == "builder")
+            {
+                ProcessBuilderState(dt);
+            }
+            
             // Cinematic Snapping (if the Director scrubs time rapidly)
             if (GlobalPosition.DistanceTo(_currentAnchor) > 50.0f)
             {
@@ -225,8 +216,8 @@ public partial class NPC : Interactable
             }
             else
             {
-                // Only move if we aren't already at the checkpoint
-                if (GlobalPosition.DistanceTo(_currentAnchor) > 1.5f)
+                // Only move if we aren't already at the checkpoint and not harvesting
+                if (GlobalPosition.DistanceTo(_currentAnchor) > 1.5f && _currentState != NpcState.Harvesting)
                 {
                     // Phase 24: Check Danger Field and avoid if high
                     if (WorldMemoryField.Instance != null && WorldMemoryField.Instance.GetDanger(GlobalPosition) > 1.0f)
@@ -369,34 +360,167 @@ public partial class NPC : Interactable
         {
             // Sleep
             _currentAnchor = _homeAnchor;
+            _currentState = NpcState.Idle;
         }
         else if ((time >= 7.0f && time <= 8.5f) || (time >= 18.0f && time <= 19.5f))
         {
             // Eat
             _currentAnchor = _eatAnchor;
+            _currentState = NpcState.Idle;
         }
         else
         {
-            // Work (Bare minimum activity)
-            _currentAnchor = _workAnchor;
+            // Work
+            if (NpcRole == "gatherer")
+            {
+                if (_currentState == NpcState.Idle || _currentState == NpcState.Returning)
+                {
+                    _currentState = NpcState.HuntingYield;
+                }
+            }
+            else if (NpcRole == "builder")
+            {
+                if (_currentState == NpcState.Idle || _currentState == NpcState.Returning)
+                {
+                    _currentState = NpcState.HuntingRepair;
+                }
+            }
+            else
+            {
+                _currentAnchor = _workAnchor;
+            }
         }
     }
 
-    private void HuntForRepairs()
+    private void ProcessBuilderState(float dt)
     {
-        if (PropagationSystem.Instance == null) return;
-        
-        var properties = GetTree().GetNodesInGroup("Properties");
-        foreach (var p in properties)
+        if (_currentState == NpcState.HuntingRepair)
         {
-            if (p is PropertyIntegrity prop)
+            if (_targetAsset == null)
             {
-                if (prop.Condition < 50.0f)
+                // Scan global Assets group
+                var assets = GetTree().GetNodesInGroup("Assets");
+                AssetCondition bestAsset = null;
+                float bestDist = float.MaxValue;
+                foreach (Node node in assets)
                 {
-                    _repairTarget = prop;
-                    GD.Print($"NPC {NpcName} broke schedule to perform Property Preservation at {_repairTarget.GlobalPosition}.");
-                    break;
+                    if (node is AssetCondition asset && asset.Condition < 50.0f)
+                    {
+                        float dist = GlobalPosition.DistanceSquaredTo(asset.GlobalPosition);
+                        if (dist < bestDist)
+                        {
+                            bestDist = dist;
+                            bestAsset = asset;
+                        }
+                    }
                 }
+                
+                if (bestAsset != null)
+                {
+                    _targetAsset = bestAsset;
+                    _currentAnchor = bestAsset.GlobalPosition;
+                }
+                else
+                {
+                    // No repairs needed, idle at work anchor
+                    _currentAnchor = _workAnchor;
+                }
+            }
+
+            if (_targetAsset != null)
+            {
+                _currentAnchor = _targetAsset.GlobalPosition;
+                if (GlobalPosition.DistanceTo(_currentAnchor) < 2.5f)
+                {
+                    _currentState = NpcState.Repairing;
+                    _repairTimer = 1.0f; // ticks
+                    Velocity = Vector3.Zero;
+                    GD.Print($"NPC {NpcName} started repairing asset at {_currentAnchor}");
+                }
+            }
+        }
+        else if (_currentState == NpcState.Repairing)
+        {
+            _repairTimer -= dt;
+            if (_repairTimer <= 0)
+            {
+                if (_targetAsset != null && IsInstanceValid(_targetAsset))
+                {
+                    _targetAsset.Repair(20.0f);
+                    GD.Print($"NPC {NpcName} repaired asset. Condition is now {_targetAsset.Condition}");
+                    
+                    if (_targetAsset.Condition >= 100.0f)
+                    {
+                        _targetAsset = null;
+                        _currentState = NpcState.Returning;
+                        _currentAnchor = _workAnchor;
+                    }
+                    else
+                    {
+                        _repairTimer = 1.0f; // keep hammering
+                    }
+                }
+                else
+                {
+                    // Asset destroyed or null
+                    _targetAsset = null;
+                    _currentState = NpcState.Returning;
+                    _currentAnchor = _workAnchor;
+                }
+            }
+        }
+    }
+
+    private void ProcessGathererState(float dt)
+    {
+        if (_currentState == NpcState.HuntingYield)
+        {
+            if (_targetYieldPos == null && GrassInstancer.Instance != null)
+            {
+                // Scan for nearest vegetation
+                _targetYieldPos = GrassInstancer.Instance.GetNearestVegetation(GlobalPosition, out _targetYieldIndex);
+            }
+
+            if (_targetYieldPos.HasValue)
+            {
+                _currentAnchor = _targetYieldPos.Value;
+                if (GlobalPosition.DistanceTo(_currentAnchor) < 1.0f)
+                {
+                    _currentState = NpcState.Harvesting;
+                    _harvestTimer = 2.0f; // Takes 2 seconds to harvest
+                    Velocity = Vector3.Zero;
+                    GD.Print($"NPC {NpcName} started harvesting at {_currentAnchor}");
+                }
+            }
+            else
+            {
+                // No yield found, wander or return home
+                _currentAnchor = _homeAnchor;
+            }
+        }
+        else if (_currentState == NpcState.Harvesting)
+        {
+            _harvestTimer -= dt;
+            if (_harvestTimer <= 0)
+            {
+                // Consume
+                if (GrassInstancer.Instance != null && _targetYieldIndex != -1)
+                {
+                    GrassInstancer.Instance.ConsumeVegetationAt(_targetYieldIndex);
+                }
+
+                // Update Stigmergy
+                if (WorldMemoryField.Instance != null && _targetYieldPos.HasValue)
+                {
+                    WorldMemoryField.Instance.AddDepletionTrace(_targetYieldPos.Value, 5.0f);
+                }
+
+                GD.Print($"NPC {NpcName} successfully harvested yield. GPU culled.");
+                
+                _targetYieldPos = null;
+                _targetYieldIndex = -1;
+                _currentState = NpcState.Returning;
+                _currentAnchor = _homeAnchor;
             }
         }
     }

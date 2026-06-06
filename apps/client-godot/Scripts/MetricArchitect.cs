@@ -37,11 +37,11 @@ public partial class MetricArchitect : Node
         splitFloor.Position = new Vector3(20, BiLevelSplitHeight, 27.5f); // 1.5m up
         splitFloor.MaterialOverride = new StandardMaterial3D { AlbedoColor = new Color(0.4f, 0.4f, 0.4f) };
 
-        // Phase 21: Add Property Integrity
-        var integrity1 = new PropertyIntegrity();
+        // Phase 21: Add Property Integrity (Now AssetCondition)
+        var integrity1 = new AssetCondition();
         mainFloor.AddChild(integrity1);
         
-        var integrity2 = new PropertyIntegrity();
+        var integrity2 = new AssetCondition();
         splitFloor.AddChild(integrity2);
 
         root.CallDeferred("add_child", mainFloor);

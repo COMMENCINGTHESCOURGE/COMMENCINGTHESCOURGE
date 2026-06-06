@@ -104,6 +104,14 @@ public partial class ComputeCuller : Node
         _initialized = true;
     }
 
+    public void UpdateInputBuffer(float[] newData)
+    {
+        if (!_initialized || _rd == null) return;
+        byte[] inputBytes = new byte[newData.Length * 4];
+        Buffer.BlockCopy(newData, 0, inputBytes, 0, inputBytes.Length);
+        _rd.BufferUpdate(_inputBuffer, 0, (uint)inputBytes.Length, inputBytes);
+    }
+
     public float[] DispatchCull(float lodDistance)
     {
         if (!_initialized || _camera == null) return null;
