@@ -14,6 +14,11 @@
 | `hyperpoly-terrain` | 6-channel material tensors · QEF meshing · WebGPU |
 | `trench-builder` | Open-world integration · chunk streaming · foreman supervisor |
 
+### Fields of Study
+- GPU/wgpu compute & real-time graphics
+- Number theory / discrete math
+- Generative AI / ML
+
 ### Governing Systems
 | Repo | Invariant |
 |---|---|
