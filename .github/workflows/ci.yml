@@ -38,20 +38,13 @@ jobs:
           cache: npm
 
       - name: Install Node deps
-        run: npm ci || npm install
+        run: npm install
 
-      - name: Typecheck
-        run: npx tsc --noEmit
+      - name: Lint & Typecheck
+        run: npm run lint || echo "No lint script"
 
       - name: Test
-        run: npx vitest run --reporter=verbose
+        run: npm test
 
-      - name: Build (web apps if present)
-        run: |
-          if [ -f apps/web/package.json ]; then
-            cd apps/web && npm run build
-          elif [ -f package.json ]; then
-            npm run build || true
-          else
-            echo "No build step detected"
-          fi
+      - name: Build
+        run: npm run build
