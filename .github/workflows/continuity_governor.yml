@@ -12,6 +12,12 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Checkout SubstrateDeltaSieve
+        uses: actions/checkout@v4
+        with:
+          repository: COMMENCINGTHESCOURGE/SubstrateDeltaSieve
+          path: SubstrateDeltaSieve
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
